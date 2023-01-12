@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HeadScent index{% endblock %}
+
+{% block body %}
+    <h1>HeadScent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Scent</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for head_scent in head_scents %}
+            <tr>
+                <td>{{ head_scent.id }}</td>
+                <td>{{ head_scent.Scent }}</td>
+                <td>
+                    <a href="{{ path('app_head_scent_show', {'id': head_scent.id}) }}">show</a>
+                    <a href="{{ path('app_head_scent_edit', {'id': head_scent.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_head_scent_new') }}">Create new</a>
+{% endblock %}

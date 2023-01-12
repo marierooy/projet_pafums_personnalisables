@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HeadScent{% endblock %}
+
+{% block body %}
+    <h1>HeadScent</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ head_scent.id }}</td>
+            </tr>
+            <tr>
+                <th>Scent</th>
+                <td>{{ head_scent.Scent }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_head_scent_index') }}">back to list</a>
+
+    <a href="{{ path('app_head_scent_edit', {'id': head_scent.id}) }}">edit</a>
+
+    {{ include('head_scent/_delete_form.html.twig') }}
+{% endblock %}

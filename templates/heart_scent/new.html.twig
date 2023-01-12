@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New HeartScent{% endblock %}
+
+{% block body %}
+    <h1>Create new HeartScent</h1>
+
+    {{ include('heart_scent/_form.html.twig') }}
+
+    <a href="{{ path('app_heart_scent_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,103 @@
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Formulaire</h3>
+                        {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+
+                                <div class="form-outline">
+                                    {{ form_widget(form.firstName, {'attr': {'class': 'form-control
+                                    form-control-lg'}})}}
+                                    {{ form_label(form.firstName, null, {'label_attr': {'class': 'form-label'}}) }}
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 mb-4">
+
+                                <div class="form-outline">
+                                    {{ form_widget(form.lastName, {'attr': {'class': 'form-control
+                                    form-control-lg'}})}}
+                                    {{ form_label(form.lastName, null, {'label_attr': {'class': 'form-label'}}) }}
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4 pb-2">
+
+                                <div class="form-outline">
+                                    {{ form_widget(form.email, {'attr': {'class': 'form-control
+                                    form-control-lg'}})}}
+                                    {{ form_label(form.email, null, {'label_attr': {'class': 'form-label'}}) }}
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 mb-4 pb-2">
+
+                                <div class="form-outline">
+                                    {{ form_widget(form.password, {'attr': {'class': 'form-control
+                                    form-control-lg'}})}}
+                                    {{ form_label(form.password, null, {'label_attr': {'class': 'form-label'}}) }}
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4 pb-2">
+
+                                <div class="form-outline">
+                                    {{ form_widget(form.address, {'attr': {'class': 'form-control
+                                    form-control-lg'}})}}
+                                    {{ form_label(form.address, null, {'label_attr': {'class': 'form-label'}}) }}
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 mb-4 pb-2">
+
+                                <div class="form-outline">
+                                    {{ form_widget(form.city, {'attr': {'class': 'form-control
+                                    form-control-lg'}})}}
+                                    {{ form_label(form.city, null, {'label_attr': {'class': 'form-label'}}) }}
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4 pb-2">
+
+                                <div class="form-outline">
+                                    {{ form_widget(form.zipCode, {'attr': {'class': 'form-control
+                                    form-control-lg'}})}}
+                                    {{ form_label(form.zipCode, null, {'label_attr': {'class': 'form-label'}}) }}
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 mb-4 pb-2">
+
+                                <div class="form-outline">
+                                    {{ form_widget(form.country, {'attr': {'class': 'form-control
+                                    form-control-lg'}})}}
+                                    {{ form_label(form.country, null, {'label_attr': {'class': 'form-label'}}) }}
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-2">
+                            <input class="btn btn-primary btn-lg" type="submit" value="S'enregistrer" />
+                        </div>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CreatedPerfume index{% endblock %}
+
+{% block body %}
+    <h1>CreatedPerfume index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>HeadScent</th>
+                <th>ProportionHeadScent</th>
+                <th>HeartScent</th>
+                <th>ProportionHeartScent</th>
+                <th>BaseScent</th>
+                <th>ProportionBaseScent</th>
+                <th>SamplingPrice</th>
+                <th>SamplingValidation</th>
+                <th>Item</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for created_perfume in created_perfumes %}
+            <tr>
+                <td>{{ created_perfume.id }}</td>
+                <td>{{ created_perfume.HeadScent }}</td>
+                <td>{{ created_perfume.ProportionHeadScent }}</td>
+                <td>{{ created_perfume.HeartScent }}</td>
+                <td>{{ created_perfume.ProportionHeartScent }}</td>
+                <td>{{ created_perfume.BaseScent }}</td>
+                <td>{{ created_perfume.ProportionBaseScent }}</td>
+                <td>{{ created_perfume.SamplingPrice }}</td>
+                <td>{{ created_perfume.SamplingValidation ? 'Yes' : 'No' }}</td>
+                <td>{{ created_perfume.Item }}</td>
+                <td>
+                    <a href="{{ path('app_created_perfume_show', {'id': created_perfume.id}) }}">show</a>
+                    <a href="{{ path('app_created_perfume_edit', {'id': created_perfume.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_created_perfume_new') }}">Create new</a>
+{% endblock %}

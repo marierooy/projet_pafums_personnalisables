@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit BaseScent{% endblock %}
+
+{% block body %}
+    <h1>Edit BaseScent</h1>
+
+    {{ include('base_scent/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_base_scent_index') }}">back to list</a>
+
+    {{ include('base_scent/_delete_form.html.twig') }}
+{% endblock %}
