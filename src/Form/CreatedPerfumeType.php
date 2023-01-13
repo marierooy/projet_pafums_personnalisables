@@ -2,10 +2,12 @@
 
 namespace App\Form;
 
+use App\Form\ProductType;
 use App\Entity\CreatedPerfume;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class CreatedPerfumeType extends AbstractType
 {
@@ -19,6 +21,9 @@ class CreatedPerfumeType extends AbstractType
             ->add('headScent')
             ->add('heartScent')
             ->add('baseScent')
+            ->add('products', null, [
+                'attr' => ['class' => 'select2-multiple']
+            ])
         ;
     }
 

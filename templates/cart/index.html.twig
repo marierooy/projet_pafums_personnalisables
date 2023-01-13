@@ -93,8 +93,6 @@
                                 <div class="row  justify-content-between">
                                     <div class="col-auto col-md-7">
                                         <div class="media flex-column flex-sm-row">
-                                            <img class=" img-fluid" src="{{ product.entity.getImage() }}" width="62"
-                                                height="62">
                                             <div class="media-body  my-auto">
                                                 <div class="row ">
                                                     <div class="col-auto">
@@ -104,11 +102,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class=" pl-0 flex-sm-col col-auto  my-auto">
-                                        <p class="boxed-1">{{ product.quantity }}</p>
-                                    </div>
                                     <div class=" pl-0 flex-sm-col col-auto  my-auto ">
-                                        <p><b>{{ product.quantity * product.entity.getPrice() }} €</b></p>
+                                        <p><b>{{ product.entity.getSamplingPrice() }} €</b></p>
                                     </div>
                                 </div>
                                 <hr class="my-2">

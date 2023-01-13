@@ -6,6 +6,7 @@ use App\Entity\Order;
 use DatetimeImmutable;
 use App\Entity\Product;
 use Psr\Log\LoggerInterface;
+use App\Entity\CreatedPerfume;
 use App\Entity\PurchasedProduct;
 use App\Repository\ProductRepository;
 use App\Repository\OrderRepository as OrderR;
@@ -31,8 +32,10 @@ class CartController extends AbstractController
         $total = 0;
 
         if (!is_null($this->session->get('cart'))) {
-            foreach($this->session->get('cart') as $product) {
-                $total += $product['entity']->getPrice() * $product['quantity'];
+            foreach($this->session->get('cart') as $createdPerfume) {
+                if ($createdPerfume['entity']->getProducts()->count()==0) {
+                    $total += $createdPerfume['entity']->getSamplingPrice();
+                }
             }
         }
 
@@ -43,17 +46,18 @@ class CartController extends AbstractController
 
 
     #[Route('/addToCart/{id}', name: 'app_add_to_cart')]
-    public function addToCart(Request $request, Product $product): Response
+    public function addToCart(Request $request, CreatedPerfume $createdPerfume): Response
     {
+        $this->session->set('cart', []);
         $cart = $this->session->get('cart', []);
        
-        if (empty($cart[$product->getId()])) {
-            $cart[$product->getId()] = [
-                'entity' => $product,
+        if (empty($cart[$createdPerfume->getId()])) {
+            $cart[$createdPerfume->getId()] = [
+                'entity' => $createdPerfume,
                 'quantity' => 1
             ];
         } else {
-            $cart[$product->getId()]['quantity']++;
+            $cart[$createdPerfume->getId()]['quantity']++;
         }
         
         $this->session->set('cart', $cart);
@@ -69,7 +73,7 @@ class CartController extends AbstractController
         $total = 0;
 
         foreach($this->session->get('cart') as $product) {
-            $total += $product['entity']->getPrice() * $product['quantity'];
+            $total += $product['entity']->getSamplingPrice();
         }
 
         $order = json_decode($request->get('order'), true);

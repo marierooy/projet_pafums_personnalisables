@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use App\Entity\CreatedPerfume;
 use App\Form\CreatedPerfumeType;
+use App\Repository\ProductRepository;
 use App\Repository\CreatedPerfumeRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/created/perfume')]
 class CreatedPerfumeController extends AbstractController
@@ -22,7 +23,7 @@ class CreatedPerfumeController extends AbstractController
     }
 
     #[Route('/new', name: 'app_created_perfume_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CreatedPerfumeRepository $createdPerfumeRepository): Response
+    public function new(Request $request, CreatedPerfumeRepository $createdPerfumeRepository, ProductRepository $productRepository): Response
     {
         $createdPerfume = new CreatedPerfume();
         $form = $this->createForm(CreatedPerfumeType::class, $createdPerfume);
@@ -32,6 +33,12 @@ class CreatedPerfumeController extends AbstractController
             $createdPerfume->setsamplingPrice(20);
             $createdPerfume->setsamplingValidation(0);
             $createdPerfumeRepository->save($createdPerfume, true);
+
+            foreach($request->get('created_perfume')['products'] as $product_id) {
+                $product = $productRepository->findOneBy(['id' => $product_id]);
+                $product->addCreatedPerfume($createdPerfume);
+                $productRepository->save($product,true);
+            }
 
             return $this->redirectToRoute('app_created_perfume_index', [], Response::HTTP_SEE_OTHER);
         }

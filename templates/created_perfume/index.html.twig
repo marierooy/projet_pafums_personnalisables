@@ -3,7 +3,7 @@
 {% block title %}CreatedPerfume index{% endblock %}
 
 {% block body %}
-    <h1>CreatedPerfume index</h1>
+    <h1>Mes parfums</h1>
 
     <table class="table">
         <thead>
@@ -26,21 +26,32 @@
             <tr>
                 <td>{{ created_perfume.id }}</td>
                 <td>{{ created_perfume.HeadScent }}</td>
-                <td>{{ created_perfume.ProportionHeadScent }}</td>
+                <td>{{ created_perfume.ProportionHeadScent }} %</td>
                 <td>{{ created_perfume.HeartScent }}</td>
-                <td>{{ created_perfume.ProportionHeartScent }}</td>
+                <td>{{ created_perfume.ProportionHeartScent }} %</td>
                 <td>{{ created_perfume.BaseScent }}</td>
-                <td>{{ created_perfume.ProportionBaseScent }}</td>
-                <td>{{ created_perfume.SamplingPrice }}</td>
+                <td>{{ created_perfume.ProportionBaseScent }} %</td>
+                <td>{{ created_perfume.SamplingPrice }} €</td>
                 <td>{{ created_perfume.SamplingValidation ? 'Oui' : 'Non' }}</td>
                 {% if created_perfume.SamplingValidation %}
-                <td>{{ created_perfume.Products }}</td>
+                <td>
+                    <ul>
+                    {% for product in created_perfume.Products %}
+                        <li>{{ product.getName() }} <br>
+                        {{ product.getPrice() }} € <br>
+                        <img src="{{product.getImage()}}" width="250" height="300"> <br>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </td>
                 {% else %}
                 <td></td>
                 {% endif %}
                 <td>
                     <a href="{{ path('app_created_perfume_show', {'id': created_perfume.id}) }}">Montrer</a>
-                    <a href="{{ path('app_created_perfume_edit', {'id': created_perfume.id}) }}">editer</a>
+                    <a href="{{ path('app_created_perfume_edit', {'id': created_perfume.id}) }}">Editer</a>
+                    <br>
+                    <a href="{{ path('app_add_to_cart', {id: created_perfume.id}) }}"><i class="fas fa-shopping-cart"></i></a>
                 </td>
             </tr>
         {% else %}
