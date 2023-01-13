@@ -8,7 +8,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Nom</th>
                 <th>Note de tête</th>
                 <th>Proportion de note de tête</th>
                 <th>Note de coeur</th>
@@ -24,7 +24,7 @@
         <tbody>
         {% for created_perfume in created_perfumes %}
             <tr>
-                <td>{{ created_perfume.id }}</td>
+                <td>{{ created_perfume.name }}</td>
                 <td>{{ created_perfume.HeadScent }}</td>
                 <td>{{ created_perfume.ProportionHeadScent }} %</td>
                 <td>{{ created_perfume.HeartScent }}</td>

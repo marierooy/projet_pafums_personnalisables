@@ -96,7 +96,9 @@
                                             <div class="media-body  my-auto">
                                                 <div class="row ">
                                                     <div class="col-auto">
-                                                        <p class="mb-0"><b>{{ product.entity.getName() }}</b></p>
+                                                        {% if (product.entity.getProducts|length == 0) %}
+                                                        <p class="mb-0"><b>Echantillon du parfum "{{ product.entity.getName() }}"</b></p>
+                                                        {% endif %} 
                                                     </div>
                                                 </div>
                                             </div>

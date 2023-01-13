@@ -33,6 +33,7 @@ class CartController extends AbstractController
 
         if (!is_null($this->session->get('cart'))) {
             foreach($this->session->get('cart') as $createdPerfume) {
+                dd($createdPerfume['entity']->getProducts());
                 if ($createdPerfume['entity']->getProducts()->count()==0) {
                     $total += $createdPerfume['entity']->getSamplingPrice();
                 }
@@ -48,7 +49,6 @@ class CartController extends AbstractController
     #[Route('/addToCart/{id}', name: 'app_add_to_cart')]
     public function addToCart(Request $request, CreatedPerfume $createdPerfume): Response
     {
-        $this->session->set('cart', []);
         $cart = $this->session->get('cart', []);
        
         if (empty($cart[$createdPerfume->getId()])) {
@@ -73,7 +73,9 @@ class CartController extends AbstractController
         $total = 0;
 
         foreach($this->session->get('cart') as $product) {
-            $total += $product['entity']->getSamplingPrice();
+            if ($createdPerfume['entity']->getProducts()->count()==0) {
+                $total += $product['entity']->getSamplingPrice();
+            }
         }
 
         $order = json_decode($request->get('order'), true);
