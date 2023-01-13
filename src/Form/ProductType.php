@@ -2,29 +2,29 @@
 
 namespace App\Form;
 
-use App\Entity\Item;
+use App\Entity\Product;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class ItemType extends AbstractType
+class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name')
-            ->add('price')
             ->add('image', FileType::class, [
                 'mapped' => false
             ])
+            ->add('price')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Item::class,
+            'data_class' => Product::class,
         ]);
     }
 }

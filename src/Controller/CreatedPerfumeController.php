@@ -31,7 +31,6 @@ class CreatedPerfumeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $createdPerfume->setsamplingPrice(20);
             $createdPerfume->setsamplingValidation(0);
-            $createdPerfume->setItem(0);
             $createdPerfumeRepository->save($createdPerfume, true);
 
             return $this->redirectToRoute('app_created_perfume_index', [], Response::HTTP_SEE_OTHER);

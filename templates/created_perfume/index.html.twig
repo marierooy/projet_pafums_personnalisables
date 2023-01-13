@@ -9,15 +9,15 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>HeadScent</th>
-                <th>ProportionHeadScent</th>
-                <th>HeartScent</th>
-                <th>ProportionHeartScent</th>
-                <th>BaseScent</th>
-                <th>ProportionBaseScent</th>
-                <th>SamplingPrice</th>
-                <th>SamplingValidation</th>
-                <th>Item</th>
+                <th>Note de tête</th>
+                <th>Proportion de note de tête</th>
+                <th>Note de coeur</th>
+                <th>Proportion de note de coeur</th>
+                <th>Note de fond</th>
+                <th>Proportion de note de fond</th>
+                <th>Prix de l'échantillon</th>
+                <th>Validation de l'échantillon</th>
+                <th>Produit(s)</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -32,20 +32,23 @@
                 <td>{{ created_perfume.BaseScent }}</td>
                 <td>{{ created_perfume.ProportionBaseScent }}</td>
                 <td>{{ created_perfume.SamplingPrice }}</td>
-                <td>{{ created_perfume.SamplingValidation ? 'Yes' : 'No' }}</td>
-                <td>{{ created_perfume.Item }}</td>
+                <td>{{ created_perfume.SamplingValidation ? 'Oui' : 'Non' }}</td>
+                {% if created_perfume.SamplingValidation %}
+                <td>{{ created_perfume.Products }}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
                 <td>
-                    <a href="{{ path('app_created_perfume_show', {'id': created_perfume.id}) }}">show</a>
-                    <a href="{{ path('app_created_perfume_edit', {'id': created_perfume.id}) }}">edit</a>
+                    <a href="{{ path('app_created_perfume_show', {'id': created_perfume.id}) }}">Montrer</a>
+                    <a href="{{ path('app_created_perfume_edit', {'id': created_perfume.id}) }}">editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="11">no records found</td>
+                <td colspan="11">aucun parfum trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_created_perfume_new') }}">Create new</a>
+    
 {% endblock %}
