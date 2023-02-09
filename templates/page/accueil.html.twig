@@ -3,18 +3,59 @@
 {% block title %}Hello PageController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/marierooy/Desktop/Projet/code projet/src/Controller/PageController.php'|file_link(0) }}">src/Controller/PageController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/marierooy/Desktop/Projet/code projet/templates/page/accueil.html.twig'|file_link(0) }}">templates/page/accueil.html.twig</a></code></li>
-    </ul>
+<div class="d-flex flex-row justify-content-around align-items-center">
+    <div style="width: 500px">
+        <h1 style="margin-top: 20px; margin-bottom: 20px" class="d-flex justify-content-center align-items-center">Bienvenue !</h1>
+        <p style="text-align: justify;">Bienvenue sur notre site de vente de parfums personnalisables. 
+        Notre objectif est de vous transmettre une expérience riche en émotions, 
+        où vous pourrez retranscrire le caractère d’un parfum unique qui vous est propre, 
+        ou de reconstituer une odeur de votre entourage que vous voudriez mettre en bouteille. 
+        Votre liberté sera totale et vous pourrez jouer avec différentes fragrances pour vous constituer 
+        votre propre univers olfactif.
+        </p>
+        <div style="color:red">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+            <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+            <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+            </svg><b> Pour accéder à la création de parfums, il vous faut créer un compte et être connecté.</b>
+        </div>
+    </div>
+    <div style="margin-top: 20px; width: 500px">
+        <img src="\images\istockphoto-1312429048-612x612.jpeg" width="400px" height="300px">
+    </div>
 </div>
+
+<div class="d-flex flex-row justify-content-around align-items-center" style="margin-top:30px">
+    <div style="margin-top: 20px; width: 500px">
+        <img src="\images\atelier-parfum-master-class.jpeg" width="400px" height="300px">
+    </div>
+    <div style="width: 500px">
+        <h2 style="margin-top: 20px; margin-bottom: 20px" class="d-flex justify-content-center align-items-center">Les produits</h2>
+        <p style="text-align: justify;">Vous pourrez déguster votre odeur en achetant différents types de produits, 
+        comme des bougies parfumées, des diffuseurs de parfums, des sticks roll on, 
+        des flacons miniatures à emporter en bagage en soute dans les avions, les parfums solides 
+        ou des flacons de taille standard de 100ml.</p>
+    </div>
+</div>
+
+<div class="d-flex flex-row justify-content-around align-items-center">
+    <div style="width: 500px">
+        <h2 style="margin-top: 20px; margin-bottom: 20px" class="d-flex justify-content-center align-items-center text-center">Création d'un parfum personalisé</h2>
+        <p style="text-align: justify;">Pour composer votre parfum, nous allons utiliser la théorie de la <b>pyramide olfactive</b>. 
+        La pyramide olfactive sert à équilibrer la recette d'une fragrance pour la rendre harmonieuse. 
+        Elle sert également à rendre son évaporation graduelle et continue. Ainsi, les parfums délivrent 
+        tour à tours différents messages olfactifs dans le temps et ne s'offrent pas pleinement dès leur 
+        premier souffle. Ils évoluent avec vous et c'est précisément la pyramide olfactive qui contribue 
+        à rendre un parfum plus vivant. La structure traditionnelle d'un parfum se partage en trois groupes. 
+        Ces trois catégories forment ensemble la pyramide olfactive. Il y a tout d’abord les <b>notes de tête</b> du parfum, 
+        qui constituent la partie la plus volatile des fragrances. Ensuite, il y a les <b>notes de cœur</b> du parfum qui, 
+        quant à elles, se déploient pendant plusieurs heures et constituent l'odeur caractéristique d'un parfum. 
+        Enfin, il y a les <b>notes de fond</b> du parfum. Leur fonction principale est de fixer le parfum pour le faire durer 
+        le plus longtemps possible.</p>
+    </div>
+    <div style="margin-top: 20px; width: 500px">
+        <img src="\images\Pyramide_FR-scaled.jpeg" width="550px" height="250px">
+    </div>
+</div>
+
 {% endblock %}

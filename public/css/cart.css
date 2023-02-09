@@ -1,5 +1,6 @@
 body {
-    background: linear-gradient(110deg, #BBDEFB 60%, #42A5F5 60%);
+    background: url("/images/1174.jpeg");
+    background-size: cover; 
 }
 
 .shop {

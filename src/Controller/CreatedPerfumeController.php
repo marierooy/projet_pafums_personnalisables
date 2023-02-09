@@ -5,45 +5,55 @@ namespace App\Controller;
 use App\Entity\CreatedPerfume;
 use App\Form\CreatedPerfumeType;
 use App\Repository\ProductRepository;
+use App\Repository\BaseScentRepository;
+use App\Repository\HeadScentRepository;
+use App\Repository\HeartScentRepository;
 use App\Repository\CreatedPerfumeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/created/perfume')]
 class CreatedPerfumeController extends AbstractController
 {
+    
     #[Route('/', name: 'app_created_perfume_index', methods: ['GET'])]
-    public function index(CreatedPerfumeRepository $createdPerfumeRepository): Response
+    public function index(CreatedPerfumeRepository $createdPerfumeRepository, UserInterface $user, BaseScentRepository $baseScentRepository, HeartScentRepository $heartScentRepository, HeadScentRepository $headScentRepository): Response
     {
         return $this->render('created_perfume/index.html.twig', [
-            'created_perfumes' => $createdPerfumeRepository->findAll(),
+            'head_scents' => $headScentRepository->findAll(),
+            'heart_scents' => $heartScentRepository->findAll(),
+            'base_scents' => $baseScentRepository->findAll(),
+            'created_perfumes' => $createdPerfumeRepository->findBy(['user' => $user->getId()]),
         ]);
     }
 
     #[Route('/new', name: 'app_created_perfume_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CreatedPerfumeRepository $createdPerfumeRepository, ProductRepository $productRepository): Response
+    public function new(Request $request, UserInterface $user, BaseScentRepository $baseScentRepository, HeartScentRepository $heartScentRepository, HeadScentRepository $headScentRepository, CreatedPerfumeRepository $createdPerfumeRepository, ProductRepository $productRepository): Response
     {
         $createdPerfume = new CreatedPerfume();
         $form = $this->createForm(CreatedPerfumeType::class, $createdPerfume);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $createdPerfume->setsamplingPrice(20);
-            $createdPerfume->setsamplingValidation(0);
+            $createdPerfume->setUser($user);
             $createdPerfumeRepository->save($createdPerfume, true);
 
             foreach($request->get('created_perfume')['products'] as $product_id) {
                 $product = $productRepository->findOneBy(['id' => $product_id]);
-                $product->addCreatedPerfume($createdPerfume);
-                $productRepository->save($product,true);
+                $createdPerfume->addProduct($product);
+                $createdPerfumeRepository->save($createdPerfume,true);
             }
 
             return $this->redirectToRoute('app_created_perfume_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('created_perfume/new.html.twig', [
+            'head_scents' => $headScentRepository->findAll(),
+            'heart_scents' => $heartScentRepository->findAll(),
+            'base_scents' => $baseScentRepository->findAll(),
             'created_perfume' => $createdPerfume,
             'form' => $form,
         ]);
@@ -58,7 +68,7 @@ class CreatedPerfumeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_created_perfume_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, CreatedPerfume $createdPerfume, CreatedPerfumeRepository $createdPerfumeRepository): Response
+    public function edit(Request $request, CreatedPerfume $createdPerfume, CreatedPerfumeRepository $createdPerfumeRepository, BaseScentRepository $baseScentRepository, HeartScentRepository $heartScentRepository, HeadScentRepository $headScentRepository): Response
     {
         $form = $this->createForm(CreatedPerfumeType::class, $createdPerfume);
         $form->handleRequest($request);
@@ -70,6 +80,9 @@ class CreatedPerfumeController extends AbstractController
         }
 
         return $this->renderForm('created_perfume/edit.html.twig', [
+            'head_scents' => $headScentRepository->findAll(),
+            'heart_scents' => $heartScentRepository->findAll(),
+            'base_scents' => $baseScentRepository->findAll(),
             'created_perfume' => $createdPerfume,
             'form' => $form,
         ]);

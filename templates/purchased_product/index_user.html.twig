@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PurchasedProduct index{% endblock %}
+
+{% block body %}
+    <h1>Mes commandes passées</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date de commande</th>
+                <th>Parfum</th>
+                <th>Composition</th>
+                <th>Produit</th>
+                <th>Prix</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for purchased_product in purchased_products %}
+            {% set selected_order = null %}
+            {% for order in orders %}
+                {% if purchased_product.commande == order %}
+                    {% set selected_order = order %}
+                {% endif %}
+            {% endfor %}
+            {% set selected_created_perfume = null %}
+            {% for created_perfume in created_perfumes %}
+                {% if purchased_product.createdPerfume == created_perfume %}
+                    {% set selected_created_perfume = created_perfume %}
+                {% endif %}
+            {% endfor %}
+            {% if selected_order is not null and selected_created_perfume is not null %}
+                <tr>
+                    <td>{{ selected_order.createdAt | date("Y-m-d H:i:s")  }}</td>
+                    <td>{{ purchased_product.createdPerfume }}</td>
+                    <td>
+                    <ul>
+                        <li>{{ selected_created_perfume.ProportionHeadScent }}% {{ selected_created_perfume.HeadScent.scent }}</li>
+                        <li>{{ selected_created_perfume.ProportionHeartScent }}% {{ selected_created_perfume.HeartScent.scent }}</li>
+                        <li>{{ selected_created_perfume.ProportionBaseScent }}% {{ selected_created_perfume.BaseScent.scent }}</li>
+                    </ul>
+                    </td>
+                    <td>{{ purchased_product.product }}</td>
+                    <td>{{ purchased_product.unitPrice }} €</td>
+                </tr>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="4">Aucune commande passée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

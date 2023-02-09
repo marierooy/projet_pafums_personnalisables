@@ -3,11 +3,11 @@
 {% block title %}Edit BaseScent{% endblock %}
 
 {% block body %}
-    <h1>Edit BaseScent</h1>
+    <h1>Editer la note de fond</h1>
 
-    {{ include('base_scent/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('base_scent/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_base_scent_index') }}">back to list</a>
+    <a href="{{ path('app_base_scent_index') }}">Retour à la liste des senteurs</a>
 
     {{ include('base_scent/_delete_form.html.twig') }}
 {% endblock %}

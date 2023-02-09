@@ -29,6 +29,12 @@ class HeadScentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['image']->getData();
+            $destination = $this->getParameter('kernel.project_dir') . '/public/images';
+            $originalFilename = $file->getClientOriginalName();
+            $file->move($destination, $originalFilename);
+            $headScent->setImage('/images/' . $originalFilename);
+            
             $headScentRepository->save($headScent, true);
 
             return $this->redirectToRoute('app_head_scent_index', [], Response::HTTP_SEE_OTHER);
@@ -55,6 +61,12 @@ class HeadScentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['image']->getData();
+            $destination = $this->getParameter('kernel.project_dir') . '/public/images';
+            $originalFilename = $file->getClientOriginalName();
+            $file->move($destination, $originalFilename);
+            $headScent->setImage('/images/' . $originalFilename);
+            
             $headScentRepository->save($headScent, true);
 
             return $this->redirectToRoute('app_head_scent_index', [], Response::HTTP_SEE_OTHER);

@@ -44,8 +44,15 @@
                 <td>{{ created_perfume.SamplingValidation ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
-                <th>Item</th>
-                <td>{{ created_perfume.Item }}</td>
+                <th>Product(s)</th>
+                <td>
+                {% for product in created_perfume.Products %}
+                    <li>{{ product.getName() }} <br>
+                    {{ product.getPrice() }} € <br>
+                    <img src="{{product.getImage()}}" width="250" height="300"> <br>
+                    </li>
+                {% endfor %}
+                </td>
             </tr>
         </tbody>
     </table>

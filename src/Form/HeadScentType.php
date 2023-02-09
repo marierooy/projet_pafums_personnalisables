@@ -6,6 +6,7 @@ use App\Entity\HeadScent;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class HeadScentType extends AbstractType
 {
@@ -13,6 +14,9 @@ class HeadScentType extends AbstractType
     {
         $builder
             ->add('scent')
+            ->add('image', FileType::class, [
+                'mapped' => false
+            ])
         ;
     }
 

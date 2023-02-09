@@ -6,6 +6,7 @@ use App\Repository\CreatedPerfumeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CreatedPerfumeRepository::class)]
 class CreatedPerfume
@@ -15,20 +16,20 @@ class CreatedPerfume
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\PositiveOrZero]
+    #[Assert\LessThanOrEqual(100)]
     #[ORM\Column(length: 255)]
-    private ?string $proportionHeadScent = null;
+    private ?string $proportionHeadScent = '33';
 
+    #[Assert\PositiveOrZero]
+    #[Assert\LessThanOrEqual(100)]
     #[ORM\Column(length: 255)]
-    private ?string $proportionHeartScent = null;
+    private ?string $proportionHeartScent = '33';
 
+    #[Assert\PositiveOrZero]
+    #[Assert\LessThanOrEqual(100)]
     #[ORM\Column(length: 255)]
-    private ?string $proportionBaseScent = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $samplingPrice = null;
-
-    #[ORM\Column(type: 'boolean', nullable: false, options:['default' => 0])]
-    private ?bool $samplingValidation = null;
+    private ?string $proportionBaseScent = '33';
 
     #[ORM\ManyToOne(inversedBy: 'CreatedPerfume')]
     #[ORM\JoinColumn(nullable: false)]
@@ -45,12 +46,20 @@ class CreatedPerfume
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'CreatedPerfume')]
+    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'createdPerfumes')]
     private Collection $products;
+
+    #[ORM\ManyToOne(inversedBy: 'createdPerfumes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'createdPerfume', targetEntity: PurchasedProduct::class, orphanRemoval: true)]
+    private Collection $purchasedProducts;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->purchasedProducts = new ArrayCollection();
     }
 
     public function __toString()
@@ -135,35 +144,6 @@ class CreatedPerfume
         return $this;
     }
 
-    public function getSamplingPrice(): ?string
-    {
-        return $this->samplingPrice;
-    }
-
-    public function setSamplingPrice(string $samplingPrice): self
-    {
-        $this->samplingPrice = $samplingPrice;
-
-        return $this;
-    }
-
-    public function getSamplingValidation(): ?string
-    {
-        return $this->samplingValidation;
-    }
-
-    public function setSamplingValidation(string $samplingValidation): self
-    {
-        $this->samplingValidation = $samplingValidation;
-
-        return $this;
-    }
-
-    public function isSamplingValidation(): ?bool
-    {
-        return $this->samplingValidation;
-    }
-
     public function getName(): ?string
     {
         return $this->name;
@@ -188,7 +168,6 @@ class CreatedPerfume
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
-            $product->addCreatedPerfume($this);
         }
 
         return $this;
@@ -196,8 +175,48 @@ class CreatedPerfume
 
     public function removeProduct(Product $product): self
     {
-        if ($this->products->removeElement($product)) {
-            $product->removeCreatedPerfume($this);
+        $this->products->removeElement($product);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PurchasedProduct>
+     */
+    public function getPurchasedProducts(): Collection
+    {
+        return $this->purchasedProducts;
+    }
+
+    public function addPurchasedProduct(PurchasedProduct $purchasedProduct): self
+    {
+        if (!$this->purchasedProducts->contains($purchasedProduct)) {
+            $this->purchasedProducts->add($purchasedProduct);
+            $purchasedProduct->setCreatedPerfume($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchasedProduct(PurchasedProduct $purchasedProduct): self
+    {
+        if ($this->purchasedProducts->removeElement($purchasedProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($purchasedProduct->getCreatedPerfume() === $this) {
+                $purchasedProduct->setCreatedPerfume(null);
+            }
         }
 
         return $this;

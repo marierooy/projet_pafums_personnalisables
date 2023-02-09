@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+<h1>Editer les informations de l'utilisateur</h1>
+
+{{ include('user/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+{% endblock %}

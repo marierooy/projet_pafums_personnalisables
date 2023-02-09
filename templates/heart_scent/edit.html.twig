@@ -3,11 +3,11 @@
 {% block title %}Edit HeartScent{% endblock %}
 
 {% block body %}
-    <h1>Edit HeartScent</h1>
+    <h1>Editer la note de coeur</h1>
 
-    {{ include('heart_scent/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('heart_scent/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_heart_scent_index') }}">back to list</a>
+    <a href="{{ path('app_heart_scent_index') }}">Retour à la liste de senteurs</a>
 
     {{ include('heart_scent/_delete_form.html.twig') }}
 {% endblock %}

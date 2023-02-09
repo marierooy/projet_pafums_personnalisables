@@ -21,19 +21,19 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\ManyToMany(targetEntity: CreatedPerfume::class, inversedBy: 'products')]
-    private Collection $CreatedPerfume;
-
-    #[ORM\ManyToMany(targetEntity: ReproducedPerfume::class, inversedBy: 'products')]
-    private Collection $ReproducedPerfume;
-
     #[ORM\Column(length: 255)]
     private ?string $price = null;
 
+    #[ORM\ManyToMany(targetEntity: CreatedPerfume::class, mappedBy: 'product')]
+    private Collection $createdPerfumes;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: PurchasedProduct::class, orphanRemoval: true)]
+    private Collection $purchasedProduct;
+
     public function __construct()
     {
-        $this->CreatedPerfume = new ArrayCollection();
-        $this->ReproducedPerfume = new ArrayCollection();
+        $this->createdPerfumes = new ArrayCollection();
+        $this->purchasedProduct = new ArrayCollection();
     }
 
     public function __toString()
@@ -70,54 +70,6 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection<int, CreatedPerfume>
-     */
-    public function getCreatedPerfume(): Collection
-    {
-        return $this->CreatedPerfume;
-    }
-
-    public function addCreatedPerfume(CreatedPerfume $createdPerfume): self
-    {
-        if (!$this->CreatedPerfume->contains($createdPerfume)) {
-            $this->CreatedPerfume->add($createdPerfume);
-        }
-
-        return $this;
-    }
-
-    public function removeCreatedPerfume(CreatedPerfume $createdPerfume): self
-    {
-        $this->CreatedPerfume->removeElement($createdPerfume);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, ReproducedPerfume>
-     */
-    public function getReproducedPerfume(): Collection
-    {
-        return $this->ReproducedPerfume;
-    }
-
-    public function addReproducedPerfume(ReproducedPerfume $reproducedPerfume): self
-    {
-        if (!$this->ReproducedPerfume->contains($reproducedPerfume)) {
-            $this->ReproducedPerfume->add($reproducedPerfume);
-        }
-
-        return $this;
-    }
-
-    public function removeReproducedPerfume(ReproducedPerfume $reproducedPerfume): self
-    {
-        $this->ReproducedPerfume->removeElement($reproducedPerfume);
-
-        return $this;
-    }
-
     public function getPrice(): ?string
     {
         return $this->price;
@@ -126,6 +78,63 @@ class Product
     public function setPrice(string $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CreatedPerfume>
+     */
+    public function getCreatedPerfumes(): Collection
+    {
+        return $this->createdPerfumes;
+    }
+
+    public function addCreatedPerfume(CreatedPerfume $createdPerfume): self
+    {
+        if (!$this->createdPerfumes->contains($createdPerfume)) {
+            $this->createdPerfumes->add($createdPerfume);
+            $createdPerfume->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreatedPerfume(CreatedPerfume $createdPerfume): self
+    {
+        if ($this->createdPerfumes->removeElement($createdPerfume)) {
+            $createdPerfume->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PurchasedProduct>
+     */
+    public function getPurchasedProduct(): Collection
+    {
+        return $this->purchasedProduct;
+    }
+
+    public function addPurchasedProduct(PurchasedProduct $purchasedProduct): self
+    {
+        if (!$this->purchasedProduct->contains($purchasedProduct)) {
+            $this->purchasedProduct->add($purchasedProduct);
+            $purchasedProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchasedProduct(PurchasedProduct $purchasedProduct): self
+    {
+        if ($this->purchasedProduct->removeElement($purchasedProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($purchasedProduct->getProduct() === $this) {
+                $purchasedProduct->setProduct(null);
+            }
+        }
 
         return $this;
     }

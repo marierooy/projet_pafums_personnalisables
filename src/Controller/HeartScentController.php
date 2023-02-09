@@ -29,6 +29,12 @@ class HeartScentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['image']->getData();
+            $destination = $this->getParameter('kernel.project_dir') . '/public/images';
+            $originalFilename = $file->getClientOriginalName();
+            $file->move($destination, $originalFilename);
+            $heartScent->setImage('/images/' . $originalFilename);
+            
             $heartScentRepository->save($heartScent, true);
 
             return $this->redirectToRoute('app_heart_scent_index', [], Response::HTTP_SEE_OTHER);
@@ -55,6 +61,12 @@ class HeartScentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['image']->getData();
+            $destination = $this->getParameter('kernel.project_dir') . '/public/images';
+            $originalFilename = $file->getClientOriginalName();
+            $file->move($destination, $originalFilename);
+            $heartScent->setImage('/images/' . $originalFilename);
+
             $heartScentRepository->save($heartScent, true);
 
             return $this->redirectToRoute('app_heart_scent_index', [], Response::HTTP_SEE_OTHER);

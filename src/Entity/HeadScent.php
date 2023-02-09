@@ -21,6 +21,9 @@ class HeadScent
     #[ORM\Column(length: 255)]
     private ?string $scent = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->CreatedPerfume = new ArrayCollection();
@@ -74,6 +77,18 @@ class HeadScent
     public function setScent(string $scent): self
     {
         $this->scent = $scent;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

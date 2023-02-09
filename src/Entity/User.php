@@ -62,9 +62,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: CreatedPerfume::class, orphanRemoval: true)]
+    private Collection $createdPerfumes;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->createdPerfumes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -259,5 +263,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
     public function getCompleteAddress() {
         return $this->address . ' ' . $this->city . ' ' . $this->zipCode . ' ' . $this->country;
+    }
+
+    /**
+     * @return Collection<int, CreatedPerfume>
+     */
+    public function getCreatedPerfumes(): Collection
+    {
+        return $this->createdPerfumes;
+    }
+
+    public function addCreatedPerfume(CreatedPerfume $createdPerfume): self
+    {
+        if (!$this->createdPerfumes->contains($createdPerfume)) {
+            $this->createdPerfumes->add($createdPerfume);
+            $createdPerfume->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreatedPerfume(CreatedPerfume $createdPerfume): self
+    {
+        if ($this->createdPerfumes->removeElement($createdPerfume)) {
+            // set the owning side to null (unless already changed)
+            if ($createdPerfume->getUser() === $this) {
+                $createdPerfume->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

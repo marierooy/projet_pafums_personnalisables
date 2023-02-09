@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -31,6 +32,25 @@ class AuthController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    }
+
+    #[Route('/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, UserRepository $userRepository, UserInterface $user): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setUpdatedAt(new DateTimeImmutable);
+            $createdPerfumeRepository->save($createdPerfume, true);
+
+            return $this->redirectToRoute('app_created_perfume_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
     }
 
     #[Route('/register', name: 'app_user_register', methods: ['GET', 'POST'])]
@@ -58,10 +78,10 @@ class AuthController extends AbstractController
             $email = (new Email())
             ->from('test@ecom.fr')
             ->to($user->getEmail())
-            ->subject('Activez votre compte sur Ecom')
+            ->subject('Activez votre compte sur le site "Identité Olfactive"')
             ->html('
                 <h1>Bonjour</h1>
-                <p>Veuillez activer votre compte E-com en cliquant sur le lien ci-dessous</p>
+                <p>Veuillez activer votre compte en cliquant sur le lien ci-dessous</p>
                 <a href="' . $this->generateUrl('app_activate', ['token' => $user->getToken()], UrlGeneratorInterface::ABSOLUTE_URL) . '">Activer mon compte</a>
             ');
 

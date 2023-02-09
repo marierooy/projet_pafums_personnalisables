@@ -29,6 +29,12 @@ class BaseScentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['image']->getData();
+            $destination = $this->getParameter('kernel.project_dir') . '/public/images';
+            $originalFilename = $file->getClientOriginalName();
+            $file->move($destination, $originalFilename);
+            $baseScent->setImage('/images/' . $originalFilename);
+
             $baseScentRepository->save($baseScent, true);
 
             return $this->redirectToRoute('app_base_scent_index', [], Response::HTTP_SEE_OTHER);
@@ -55,6 +61,12 @@ class BaseScentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['image']->getData();
+            $destination = $this->getParameter('kernel.project_dir') . '/public/images';
+            $originalFilename = $file->getClientOriginalName();
+            $file->move($destination, $originalFilename);
+            $baseScent->setImage('/images/' . $originalFilename);
+            
             $baseScentRepository->save($baseScent, true);
 
             return $this->redirectToRoute('app_base_scent_index', [], Response::HTTP_SEE_OTHER);

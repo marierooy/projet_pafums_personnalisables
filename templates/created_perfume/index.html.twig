@@ -3,63 +3,107 @@
 {% block title %}CreatedPerfume index{% endblock %}
 
 {% block body %}
-    <h1>Mes parfums</h1>
+<h1 style="margin-top: 20px" class="d-flex justify-content-center">Mes parfums</h1>
+<div style="display: flex; flex-wrap: wrap">
+{% for key_created_perfume, created_perfume in created_perfumes %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Note de tête</th>
-                <th>Proportion de note de tête</th>
-                <th>Note de coeur</th>
-                <th>Proportion de note de coeur</th>
-                <th>Note de fond</th>
-                <th>Proportion de note de fond</th>
-                <th>Prix de l'échantillon</th>
-                <th>Validation de l'échantillon</th>
-                <th>Produit(s)</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for created_perfume in created_perfumes %}
-            <tr>
-                <td>{{ created_perfume.name }}</td>
-                <td>{{ created_perfume.HeadScent }}</td>
-                <td>{{ created_perfume.ProportionHeadScent }} %</td>
-                <td>{{ created_perfume.HeartScent }}</td>
-                <td>{{ created_perfume.ProportionHeartScent }} %</td>
-                <td>{{ created_perfume.BaseScent }}</td>
-                <td>{{ created_perfume.ProportionBaseScent }} %</td>
-                <td>{{ created_perfume.SamplingPrice }} €</td>
-                <td>{{ created_perfume.SamplingValidation ? 'Oui' : 'Non' }}</td>
-                {% if created_perfume.SamplingValidation %}
-                <td>
-                    <ul>
-                    {% for product in created_perfume.Products %}
-                        <li>{{ product.getName() }} <br>
-                        {{ product.getPrice() }} € <br>
-                        <img src="{{product.getImage()}}" width="250" height="300"> <br>
-                        </li>
-                    {% endfor %}
-                    </ul>
-                </td>
-                {% else %}
-                <td></td>
-                {% endif %}
-                <td>
-                    <a href="{{ path('app_created_perfume_show', {'id': created_perfume.id}) }}">Montrer</a>
-                    <a href="{{ path('app_created_perfume_edit', {'id': created_perfume.id}) }}">Editer</a>
-                    <br>
-                    <a href="{{ path('app_add_to_cart', {id: created_perfume.id}) }}"><i class="fas fa-shopping-cart"></i></a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">aucun parfum trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    
-{% endblock %}
+    {% set selected_key_head = 0 %} 
+    {% for key, head_scent in head_scents %}
+        {% if head_scent.scent == created_perfume.HeadScent.scent %}
+            {% set selected_key_head = key %}
+        {% endif %}
+    {% endfor %}
+
+    {% set selected_key_heart = 0 %}
+    {% for key, heart_scent in heart_scents %}
+        {% if heart_scent.scent == created_perfume.HeartScent.scent %}
+            {% set selected_key_heart = key %}
+        {% endif %}
+    {% endfor %}
+
+    {% set selected_key_base = 0 %}
+    {% for key, base_scent in base_scents %}
+        {% if base_scent.scent == created_perfume.BaseScent.scent %}
+            {% set selected_key_base = key %}
+        {% endif %}
+    {% endfor %}
+    <div class="d-flex flex-column align-items-center justify-content-start" style="width:480px; border: 0.25rem solid;">
+        <div class="d-flex flex-row align-items-center justify-content-center" style="width:480px; height:30px; margin-top:50px">
+            <a style="margin-right: 20px" href="{{ path('app_created_perfume_edit', {'id': created_perfume.id}) }}"><button class="btn btn-primary">Editer</button></a>
+            {{ include('created_perfume/_delete_form.html.twig') }}
+            <a style="margin-left: 20px" href="{{ path('app_add_to_cart', {id: created_perfume.id}) }}"><button class="btn btn-primary">Ajouter au panier <i class="fas fa-shopping-cart"></i></button></a>
+        </div>
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <div style='margin-top: 50px; margin-bottom: 30px'>
+                <h2>{{ created_perfume.name }}</h2>
+            </div>
+            <div style='height:40px; width:60px; border:solid; border-top: none'>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row align-items-center justify-content-center">
+            <div id='proportionHeadScentInput' style='height: 0px; width: 350px; position: relative; bottom:0px'>
+                <pre style='position: relative; bottom: 10px; left:180px'>
+                    {{ created_perfume.ProportionHeadScent }} %
+                </pre>
+            </div>
+            <div id='proportionHeadScent' style='height:{{created_perfume.ProportionHeadScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ head_scents[selected_key_head].image }}"); background-size: cover; border:solid; margin-top: -1px'>
+            </div>
+            <div id='headScentInput' style='height: 0px; width: 350px; position: relative; bottom:0px'>
+                <pre style='position: relative; bottom: 10px; left:-50px'>
+                    {{ created_perfume.HeadScent }}
+                </pre>
+            </div>
+        </div>
+        
+        <div class="d-flex flex-row align-items-center justify-content-center">
+            <div id='proportionHeartScentInput' style='height: 0px; width: 350px; position: relative; top:0px'>
+                <pre style='position: relative; bottom: 10px; left:180px'>
+                    {{ created_perfume.ProportionHeartScent }} %
+                </pre>
+            </div>
+            <div id='proportionHeartScent' style='height:{{created_perfume.ProportionHeartScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ heart_scents[selected_key_heart].image }}"); background-size: cover; border:solid; margin-top: -1px'>
+            </div>
+            <div id='heartScentInput' style='height: 0px; width: 350px; position: relative; bottom:0px'>
+                <pre style='position: relative; bottom: 10px; left:-50px'>
+                    {{ created_perfume.HeartScent }}
+                </pre>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row align-items-center justify-content-center">
+            <div id='proportionBaseScentInput' style='height: 0px; width: 350px; position: relative; top:0px'>
+            <pre style='position: relative; bottom: 38px; left:200px'> 
+                {{ created_perfume.ProportionBaseScent }} %
+            </pre>
+            </div>
+            <div id='proportionBaseScent' style='height:{{created_perfume.ProportionBaseScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ base_scents[selected_key_base].image }}"); background-size: cover; border:solid; margin-top: -1px; border-radius: 0px 0px 40px 40px;'></div>
+            <div id='baseScentInput' style='height: 0px; width: 350px; position: relative; bottom:0px'>
+                <pre style='position: relative; bottom: 10px; left:-50px'>
+                    {{ created_perfume.BaseScent }}
+                </pre>
+            </div>
+        </div>
+
+        <div class="d-flex w-100 flex-column align-items-center justify-content-center" style='margin-top: 40px'>
+            <h4>Forme(s) du parfum:</h4>
+            <div style='margin-top: 40px'>
+                <ul style='list-style: none'>	
+                {% for product in created_perfume.Products %}
+                    <li style="float:left; padding-right: 20px;">
+                    {{ product.getName() }} <br>
+                    {{ product.getPrice() }} € <br>
+                    <img src="{{product.getImage()}}" width="200px" height="200px"> <br>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+{% for i in range(1, 3 - created_perfumes|length % 3) %}
+    <div style="width:480px; border: 0.25rem solid;">
+    </div>
+{% endfor %}
+</div>
+{% endblock %} 

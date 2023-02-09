@@ -3,13 +3,14 @@
 {% block title %}BaseScent index{% endblock %}
 
 {% block body %}
-    <h1>BaseScent index</h1>
+    <h1>Les notes de fond</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Scent</th>
+                <th>Senteur</th>
+                <th>Image</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,18 +19,19 @@
             <tr>
                 <td>{{ base_scent.id }}</td>
                 <td>{{ base_scent.Scent }}</td>
+                <td><img src="{{base_scent.image}}" width="300" height="300"></td>
                 <td>
-                    <a href="{{ path('app_base_scent_show', {'id': base_scent.id}) }}">show</a>
-                    <a href="{{ path('app_base_scent_edit', {'id': base_scent.id}) }}">edit</a>
+                    <a href="{{ path('app_base_scent_show', {'id': base_scent.id}) }}">Montrer</a>
+                    <a href="{{ path('app_base_scent_edit', {'id': base_scent.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">Aucune senteur trouvée</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_base_scent_new') }}">Create new</a>
+    <a href="{{ path('app_base_scent_new') }}">Ajouter une nouvelle senteur</a>
 {% endblock %}

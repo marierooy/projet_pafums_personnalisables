@@ -12,15 +12,19 @@
                 <td>{{ heart_scent.id }}</td>
             </tr>
             <tr>
-                <th>Scent</th>
+                <th>Senteur</th>
                 <td>{{ heart_scent.Scent }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{heart_scent.image}}" width="300" height="300"></td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_heart_scent_index') }}">back to list</a>
+    <a href="{{ path('app_heart_scent_index') }}">Retour à la liste des senteurs</a>
 
-    <a href="{{ path('app_heart_scent_edit', {'id': heart_scent.id}) }}">edit</a>
+    <a href="{{ path('app_heart_scent_edit', {'id': heart_scent.id}) }}">Editer</a>
 
     {{ include('heart_scent/_delete_form.html.twig') }}
 {% endblock %}
