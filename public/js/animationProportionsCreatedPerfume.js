@@ -53,8 +53,8 @@ function ajustmentInHeightProportionsHeartBaseBoxes(ajustment){
 proportionHeadScent.addEventListener('change', function(){
     let newHeightHead = proportionHeadScent.value/100*120*3;
     document.getElementById("proportionHeadScent").style.height = newHeightHead+'px';
-    document.getElementById("proportionHeadScentInput").style.top=cumulativeOffset(document.getElementById("proportionHeadScent"))-document.getElementById("proportionHeadScentInput").style.top/2+'px';
     alert(document.getElementById("proportionHeadScentInput").style.top);
+    document.getElementById("proportionHeadScentInput").style.top=cumulativeOffset(document.getElementById("proportionHeadScent"))-document.getElementById("proportionHeadScentInput").style.top/2+'px';
     proportionBaseScent.value = 100 - proportionHeadScent.value - proportionHeartScent.value;
     if (proportionBaseScent.value<0) {
         proportionBaseScent.value = 0;
