@@ -35,99 +35,51 @@
             <div style='height:40px; width:60px; border:solid; border-top: none'>
             </div>
         </div>
-
         <div class="d-flex flex-row align-items-center justify-content-center">
-            <div id='proportionHeadScentInput' style='height: 0px; width: 230.3px; position: relative; bottom:0px'>
-                {# ; left: -20px #}
-                <pre style='position: relative; bottom: 42px'>
-                    Proportion de la 
-                    note de tête (%)
+            <div class="d-flex flex-column align-items-center justify-content-center">
+                <div id='proportionHeadScentInput' style='height: 50px; width: 230.3px; position: relative; bottom:{{created_perfume.ProportionHeadScent/100*120*3/2}}px'>
+                    {# ; left: -20px #}
+                    Proportion de la note <br> de tête (%)
                     {{ form_widget(form.proportionHeadScent) }}
-{#                     <span style="position: relative; bottom:30px" class="d-flex flex-row align-items-center justify-content-center">{{ form_widget(form.proportionHeadScent) }}
-                        <span class="d-flex flex-column align-items-center justify-content-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up" viewBox="0 0 16 16">
-                            <path d="M3.204 11h9.592L8 5.519 3.204 11zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
-                            <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
-                            </svg>
-                        </span>
-                    </span> #}
-                </pre>
-            </div>
-            {# ; background-image: url("/image/{{  }}") #}
-            <div id='proportionHeadScent' style='display: inline-block; vertical-align: middle; height:{{created_perfume.ProportionHeadScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ head_scents[selected_key_head].image }}"); background-size: cover; border:solid; margin-top: -1px'>
-            </div>
-            <div id='headScentInput' style='height: 0px; width: 230.3px; position: relative; bottom:0px'>
-            {# left: -50px #}
-                <pre style='position: relative; bottom: 42px'>
-                    Senteur de la 
-                    note de tête
-                    {{ form_widget(form.headScent) }}
-                </pre>
-            </div>
-        </div>
-        
-        <div class="d-flex flex-row align-items-center justify-content-center">
-            <div id='proportionHeartScentInput' style='height: 0px; width: 230.3px; position: relative; top:0px'>
-               {#  ; left:-20px #}
-                <pre style='position: relative; bottom: 42px'>
-                    Proportion de la 
-                    note de coeur (%)
+                </div>
+                <div id='proportionHeartScentInput' style='height: 50px; width: 230.3px; position: relative; bottom:0px'>
+                {#  ; left:-20px #}
+                    Proportion de la note <br> de coeur (%)
                     {{ form_widget(form.proportionHeartScent) }}
-   {#                  <span style="position: relative; bottom:30px" class="d-flex flex-row align-items-center justify-content-center">{{ form_widget(form.proportionHeartScent) }}
-                        <span class="d-flex flex-column align-items-center justify-content-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up" viewBox="0 0 16 16">
-                            <path d="M3.204 11h9.592L8 5.519 3.204 11zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
-                            <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
-                            </svg>
-                        </span>
-                    </span>  #}
-                </pre>
+                </div>
+                <div id='proportionBaseScentInput' style='height: 50px; width: 230.3px; position: relative; top:{{created_perfume.ProportionBaseScent/100*120*3/2}}px'>
+                    Proportion de la note <br> de fond (%)
+                    {{ form_widget(form.proportionBaseScent) }}
+                </div>
             </div>
-            <div id='proportionHeartScent' style='display: inline-block; vertical-align: middle; height:{{created_perfume.ProportionHeartScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ heart_scents[selected_key_heart].image }}"); background-size: cover; border:solid; margin-top: -1px'>
+            
+            <div class="d-flex flex-column align-items-center justify-content-center">
+                <div id='proportionHeadScent' style='height:{{created_perfume.ProportionHeadScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ head_scents[selected_key_head].image }}"); background-size: cover; border:solid; margin-top: -1px'>
+                </div>
+                <div id='proportionHeartScent' style='height:{{created_perfume.ProportionHeartScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ heart_scents[selected_key_heart].image }}"); background-size: cover; border:solid; margin-top: -1px'>
+                </div>
+                <div id='proportionBaseScent' style='height:{{created_perfume.ProportionBaseScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ base_scents[selected_key_base].image }}"); background-size: cover; border:solid; margin-top: -1px; border-radius: 0px 0px 40px 40px;'>
+                </div>
             </div>
-            <div id='heartScentInput' style='height: 0px; width: 230.3px; position: relative; bottom:0px'>
-               {#  ; left:-50px #}
-                <pre style='position: relative; bottom: 42px'>
-                    Senteur de la 
-                    note de coeur
+
+            <div class="d-flex flex-column align-items-center justify-content-center">
+                <div id='headScentInput' style='height: 50px; width: 230.3px; position: relative; bottom:{{created_perfume.ProportionHeadScent/100*120*3/2}}px'>
+                {# left: -50px #}
+                    Senteur de la note <br> de tête
+                    {{ form_widget(form.headScent) }}
+                </div>
+                <div id='heartScentInput' style='height: 50px; width: 230.3px; position: relative; bottom:0px'>
+                {#  ; left:-50px #}
+                    Senteur de la note <br> de coeur
                     {{ form_widget(form.heartScent) }}
-                </pre>
-            </div>
-        </div>
-
-        <div class="d-flex flex-row align-items-center justify-content-center">
-            <div id='proportionBaseScentInput' style='height: 0px; width: 230.3px; position: relative; top:0px'>
-            <pre style='position: relative; bottom: 42px'>
-                Proportion de la 
-                note de fond (%)
-                {{ form_widget(form.proportionBaseScent) }}
-{#                 <span style="position: relative; bottom:30px; right:17px" class="d-flex flex-row align-items-center justify-content-center">{{ form_widget(form.proportionBaseScent) }}
-                    <span class="d-flex flex-column align-items-center justify-content-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up" viewBox="0 0 16 16">
-                        <path d="M3.204 11h9.592L8 5.519 3.204 11zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
-                        <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
-                        </svg>
-                    </span>
-                </span> #}
-            </pre>
-            </div>
-            <div id='proportionBaseScent' style='display: inline-block; vertical-align: middle; height:{{created_perfume.ProportionBaseScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ base_scents[selected_key_base].image }}"); background-size: cover; border:solid; margin-top: -1px; border-radius: 0px 0px 40px 40px;'></div>
-            <div id='baseScentInput' style='height: 0px; width: 230.3px; position: relative; bottom:0px'>
-            {# ; left:-50px #}
-                <pre style='position: relative; bottom: 42px'>
-                    Senteur de la 
-                    note de fond 
+                </div>
+                <div id='baseScentInput' style='height: 50px; width: 230.3px; position: relative; top:{{created_perfume.ProportionBaseScent/100*120*3/2}}px'>
+                {# ; left:-50px #}
+                    Senteur de la note <br> de fond 
                     {{ form_widget(form.baseScent) }}
-                </pre>
+                </div>
             </div>
         </div>
-
         <div class="d-flex flex-column align-items-center justify-content-center">
             <div style='margin-top: 120px; font-size: 18px'> Produit(s)<br>
             {{ form_widget(form.products) }} 

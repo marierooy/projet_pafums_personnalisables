@@ -5,6 +5,19 @@ var proportionBaseScent = document.getElementById("created_perfume_proportionBas
 
 var ajustmentInHeightProportions=22/100*120*3;
 
+function cumulativeOffset(element) {
+    var top = 0, left = 0;
+    do {
+        top += element.offsetTop  || 0;
+        left += element.offsetLeft || 0;
+        element = element.offsetParent;
+    } while(element);
+
+    return {
+        top: top,
+    };
+};
+
 function ajustmentInHeightProportionsHeadHeartBoxes(ajustment){
     if ((Number(proportionHeadScent.value) + Number(proportionHeartScent.value))<=45){
         document.getElementById("proportionHeadScentInput").style.bottom=ajustment.toString()+"px";
@@ -39,8 +52,9 @@ function ajustmentInHeightProportionsHeartBaseBoxes(ajustment){
 
 proportionHeadScent.addEventListener('change', function(){
     let newHeightHead = proportionHeadScent.value/100*120*3;
-    let newHeightHeadPx = newHeightHead + "px";
-    document.getElementById("proportionHeadScent").style.height = newHeightHeadPx;
+    document.getElementById("proportionHeadScent").style.height = newHeightHead+'px';
+    document.getElementById("proportionHeadScentInput").style.top=cumulativeOffset(document.getElementById("proportionHeadScent"))-document.getElementById("proportionHeadScentInput").style.top/2+'px';
+    alert(document.getElementById("proportionHeadScentInput").style.top);
     proportionBaseScent.value = 100 - proportionHeadScent.value - proportionHeartScent.value;
     if (proportionBaseScent.value<0) {
         proportionBaseScent.value = 0;
