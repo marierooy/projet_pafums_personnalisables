@@ -14,8 +14,6 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/style.css" />
-    {% block stylesheets %}
-    {{ encore_entry_link_tags('app') }}
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;900&display=swap');
     body {
@@ -60,11 +58,13 @@
     }
 
     </style>
+    {% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
     {% endblock %}
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     {% endblock %}
 </head>
 
