@@ -73,6 +73,8 @@
     {% block body %}{% endblock %}
     {% include('footer.html.twig') %}
     {% block js %}
+    {{ encore_entry_script_tags('app') }}
+    {% endblock %}
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -100,7 +102,6 @@
         evt.preventDefault();
     });
     </script>
-    {% endblock %}
 </body>
 
 </html>

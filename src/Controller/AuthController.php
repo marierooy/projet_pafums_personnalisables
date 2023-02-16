@@ -44,7 +44,7 @@ class AuthController extends AbstractController
             $user->setUpdatedAt(new DateTimeImmutable);
             $createdPerfumeRepository->save($createdPerfume, true);
 
-            return $this->redirectToRoute('app_created_perfume_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/edit.html.twig', [
@@ -91,7 +91,7 @@ class AuthController extends AbstractController
 
             $this->addFlash('activate', 'Vous avez reçu un email pour activer votre compte.');
 
-            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/register.html.twig', [
@@ -110,7 +110,7 @@ class AuthController extends AbstractController
             $userRepository->save($user, true);
         }
         
-        return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route(path: '/logout', name: 'app_logout')]
