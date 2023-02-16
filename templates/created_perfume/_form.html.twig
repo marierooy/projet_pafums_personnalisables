@@ -37,9 +37,9 @@
         </div>
 
         <div class="d-flex flex-row align-items-center justify-content-center">
-            {# 230.3px; #}
-            <div id='proportionHeadScentInput' style='height: 0px; width: 500px; position: relative; bottom:0px'>
-                <pre style='position: relative; bottom: 42px; left: -20px'>
+            <div id='proportionHeadScentInput' style='height: 0px; width: 230.3px; position: relative; bottom:0px'>
+                {# ; left: -20px #}
+                <pre style='position: relative; bottom: 42px'>
                     Proportion de la 
                     note de tête (%)
                     {{ form_widget(form.proportionHeadScent) }}
@@ -58,8 +58,9 @@
             {# ; background-image: url("/image/{{  }}") #}
             <div id='proportionHeadScent' style='height:{{created_perfume.ProportionHeadScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ head_scents[selected_key_head].image }}"); background-size: cover; border:solid; margin-top: -1px'>
             </div>
-            <div id='headScentInput' style='height: 0px; width: 500px; position: relative; bottom:0px'>
-                <pre style='position: relative; bottom: 42px; left: -50px'>
+            <div id='headScentInput' style='height: 0px; width: 230.3px; position: relative; bottom:0px'>
+            {# left: -50px #}
+                <pre style='position: relative; bottom: 42px'>
                     Senteur de la 
                     note de tête
                     {{ form_widget(form.headScent) }}
@@ -68,8 +69,9 @@
         </div>
         
         <div class="d-flex flex-row align-items-center justify-content-center">
-            <div id='proportionHeartScentInput' style='height: 0px; width: 500px; position: relative; top:0px'>
-                <pre style='position: relative; bottom: 42px; left:-20px'>
+            <div id='proportionHeartScentInput' style='height: 0px; width: 230.3px; position: relative; top:0px'>
+               {#  ; left:-20px #}
+                <pre style='position: relative; bottom: 42px'>
                     Proportion de la 
                     note de coeur (%)
                     {{ form_widget(form.proportionHeartScent) }}
@@ -87,8 +89,9 @@
             </div>
             <div id='proportionHeartScent' style='height:{{created_perfume.ProportionHeartScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ heart_scents[selected_key_heart].image }}"); background-size: cover; border:solid; margin-top: -1px'>
             </div>
-            <div id='heartScentInput' style='height: 0px; width: 500px; position: relative; bottom:0px'>
-                <pre style='position: relative; bottom: 42px; left:-50px'>
+            <div id='heartScentInput' style='height: 0px; width: 230.3px; position: relative; bottom:0px'>
+               {#  ; left:-50px #}
+                <pre style='position: relative; bottom: 42px'>
                     Senteur de la 
                     note de coeur
                     {{ form_widget(form.heartScent) }}
@@ -97,7 +100,7 @@
         </div>
 
         <div class="d-flex flex-row align-items-center justify-content-center">
-            <div id='proportionBaseScentInput' style='height: 0px; width: 500px; position: relative; top:0px'>
+            <div id='proportionBaseScentInput' style='height: 0px; width: 230.3px; position: relative; top:0px'>
             <pre style='position: relative; bottom: 42px'>
                 Proportion de la 
                 note de fond (%)
@@ -115,8 +118,9 @@
             </pre>
             </div>
             <div id='proportionBaseScent' style='height:{{created_perfume.ProportionBaseScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ base_scents[selected_key_base].image }}"); background-size: cover; border:solid; margin-top: -1px; border-radius: 0px 0px 40px 40px;'></div>
-            <div id='baseScentInput' style='height: 0px; width: 500px; position: relative; bottom:0px'>
-                <pre style='position: relative; bottom: 42px; left:-50px'>
+            <div id='baseScentInput' style='height: 0px; width: 230.3px; position: relative; bottom:0px'>
+            {# ; left:-50px #}
+                <pre style='position: relative; bottom: 42px'>
                     Senteur de la 
                     note de fond 
                     {{ form_widget(form.baseScent) }}
