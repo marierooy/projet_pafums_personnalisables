@@ -27,7 +27,7 @@
             {% set selected_key_base = key %}
         {% endif %}
     {% endfor %}
-    <div class="position: absolute">
+    <div class="position: absolute; display: flex; flex-wrap: wrap;">
         <div class="d-flex flex-column align-items-center justify-content-center">
             <div style='margin-top: 50px; margin-bottom: 90px; font-size: 18px'> Nom <br>
             {{ form_widget(form.name) }} 

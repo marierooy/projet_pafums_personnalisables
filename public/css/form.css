@@ -1,0 +1,20 @@
+@media (max-width: 700px) {
+    #headScentInput {
+        width: 0px;
+    }
+    #proportionHeadScentInput {
+        width: 0px;
+    }
+    #heartScentInput {
+        width: 0px;
+    }
+    #proportionHeartScentInput {
+        width: 0px;
+    }
+    #baseScentInput {
+        width: 0px;
+    }
+    #proportionBaseScentInput {
+        width: 0px;
+    }
+}
