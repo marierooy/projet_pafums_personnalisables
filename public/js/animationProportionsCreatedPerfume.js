@@ -3,37 +3,25 @@ var proportionHeadScent = document.getElementById("created_perfume_proportionHea
 var proportionHeartScent = document.getElementById("created_perfume_proportionHeartScent");
 var proportionBaseScent = document.getElementById("created_perfume_proportionBaseScent");
 
-var ajustmentInHeightProportions=22/100*120*3;
-
-function cumulativeOffset(element) {
-    var top = 0, left = 0;
-    do {
-        top += element.offsetTop  || 0;
-        left += element.offsetLeft || 0;
-        element = element.offsetParent;
-    } while(element);
-
-    return {
-        top: top,
-    };
-};
+var ajustmentInHeightProportions=15/100*120*3;
 
 function ajustmentInHeightProportionsHeadHeartBoxes(ajustment){
-    if ((Number(proportionHeadScent.value) + Number(proportionHeartScent.value))<=45){
-        document.getElementById("proportionHeadScentInput").style.bottom=ajustment.toString()+"px";
+    if ((Number(proportionHeadScent.value) + Number(proportionHeartScent.value))<=55){
+        ajustedNumber = 60+ajustment;
+        document.getElementById("proportionHeadScentInput").style.bottom=ajustedNumber.toString()+"px";
         /* document.getElementById("proportionHeartScentInput").style.top=ajustment.toString()+"px"; */
-        document.getElementById("headScentInput").style.bottom=ajustment.toString()+"px";
+        document.getElementById("headScentInput").style.bottom=ajustedNumber.toString()+"px";
         /* document.getElementById("heartScentInput").style.top=ajustment.toString()+"px"; */
     } else {
-        document.getElementById("proportionHeadScentInput").style.bottom="0px";
-        document.getElementById("proportionHeartScentInput").style.top="0px";
-        document.getElementById("headScentInput").style.bottom="0px";
-        document.getElementById("heartScentInput").style.top="0px";
+        document.getElementById("proportionHeadScentInput").style.bottom="60px";
+        document.getElementById("proportionHeartScentInput").style.top="-50px";
+        document.getElementById("headScentInput").style.bottom="60px";
+        document.getElementById("heartScentInput").style.top="-50px";
     }
 }
 
 function ajustmentInHeightProportionsHeartBaseBoxes(ajustment){
-    if ((Number(proportionBaseScent.value) + Number(proportionHeartScent.value))<=45){
+    if ((Number(proportionBaseScent.value) + Number(proportionHeartScent.value))<=55){
         ajustmentBoolean = 1;
         /* document.getElementById("proportionHeartScentInput").style.top="-"+ajustment.toString()+"px"; */
         document.getElementById("proportionBaseScentInput").style.top=ajustment.toString()+"px";
@@ -43,8 +31,8 @@ function ajustmentInHeightProportionsHeartBaseBoxes(ajustment){
         document.getElementById("proportionBaseScentInput").style.top="0px";
         document.getElementById("baseScentInput").style.top="0px";
     } else {
-        document.getElementById("proportionHeartScentInput").style.top="0px";
-        document.getElementById("heartScentInput").style.top="0px";
+        document.getElementById("proportionHeartScentInput").style.top="-50px";
+        document.getElementById("heartScentInput").style.top="-50px";
         document.getElementById("proportionBaseScentInput").style.top="0px";
         document.getElementById("baseScentInput").style.top="0px";
     }
@@ -53,8 +41,6 @@ function ajustmentInHeightProportionsHeartBaseBoxes(ajustment){
 proportionHeadScent.addEventListener('change', function(){
     let newHeightHead = proportionHeadScent.value/100*120*3;
     document.getElementById("proportionHeadScent").style.height = newHeightHead+'px';
-    alert(document.getElementById("proportionHeadScentInput").style.top);
-    document.getElementById("proportionHeadScentInput").style.top=cumulativeOffset(document.getElementById("proportionHeadScent"))-document.getElementById("proportionHeadScentInput").style.top/2+'px';
     proportionBaseScent.value = 100 - proportionHeadScent.value - proportionHeartScent.value;
     if (proportionBaseScent.value<0) {
         proportionBaseScent.value = 0;
