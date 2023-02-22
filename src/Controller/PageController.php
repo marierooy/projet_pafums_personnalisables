@@ -15,4 +15,12 @@ class PageController extends AbstractController
             'controller_name' => 'PageController',
         ]);
     }
+
+    #[Route('/boutiques/ephemeres', name: 'app_boutiques_ephemeres')]
+    public function boutiquesEphemeres(): Response
+    {
+        return $this->render('page/boutiques_ephemeres.html.twig', [
+            'controller_name' => 'PageController',
+        ]);
+    }
 }
