@@ -3,9 +3,40 @@
 {% block title %}PurchasedProduct index{% endblock %}
 
 {% block body %}
-    <h1>Les commandes passées</h1>
+    <h1 style="margin-top: 10px; margin-bottom: 40px">Les commandes passées</h1>
 
-    <table class="table">
+    <form method="GET">
+    <label for="user_id">De quel client souhaitez-vous voir les commandes ? &nbsp</label>
+        <select name="user_id" id="user_id">
+            <option value="">Tous les clients</option>
+            {% for user in users %}
+            <option value="{{ user.id }}" {% if app.request.get('user_id') == user.id %} selected {% endif
+                %}>{{ user.firstName }} {{ user.lastName }}</option>
+            {% endfor %}
+        </select>
+    <button>Filtrer</button>
+    </form>
+    <br>
+    <form method="GET">
+        <label for="product_id">De quel produit souhaitez-vous voir les commandes ? &nbsp</label>
+            <select name="product_id" id="product_id">
+                <option value="">Tous les produits</option>
+                {% for product in products %}
+                <option value="{{ product.id }}" {% if app.request.get('product_id') == product.id %} selected {% endif
+                    %}>{{ product }} </option>
+                {% endfor %}
+            </select>
+        <button>Filtrer</button>
+    </form>
+    <br>
+    <form method="GET">
+        <label for="created_at">Dans quel intervalle de date de de création souhaitez-vous voir les commandes ? &nbsp</label>
+            <input type="datetime-local" id="created_at_init" name="created_at_init" value="{{ app.request.get('created_at_init') }}">
+            <input type="datetime-local" id="created_at_final" name="created_at_final" value="{{ app.request.get('created_at_final') }}">
+        <button>Filtrer</button>
+    </form>
+
+    <table class="table" style="margin-top: 30px">
         <thead>
             <tr>
                 <th>Prénom de l'utilisateur</th>
@@ -19,6 +50,7 @@
             </tr>
         </thead>
         <tbody>
+        {% set index = 0 %}
         {% for purchased_product in purchased_products %}
             {% set selected_order = null %}
             {% for order in orders %}
@@ -26,6 +58,9 @@
                     {% set selected_order = order %}
                 {% endif %}
             {% endfor %}
+            {% if selected_order == null %}
+            {% set index = index + 1 %}
+            {% endif %}
             {% set selected_created_perfume = null %}
             {% for created_perfume in created_perfumes %}
                 {% if purchased_product.createdPerfume == created_perfume %}
@@ -34,7 +69,7 @@
             {% endfor %}
             {% set selected_user = null %}
             {% for user in users %}
-                {% if selected_order.user == user %}
+                {% if selected_order is not null and selected_order.user == user %}
                     {% set selected_user = user %}
                 {% endif %}
             {% endfor %}
@@ -56,11 +91,12 @@
                     <td>{{ purchased_product.unitPrice }} €</td>
                 </tr>
             {% endif %}
-        {% else %}
+        {% endfor %}
+        {% if index == purchased_products|length %}
             <tr>
                 <td colspan="4">Aucune commande passée</td>
             </tr>
-        {% endfor %}
+        {% endif %}   
         </tbody>
     </table>
 {% endblock %}

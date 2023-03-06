@@ -60,8 +60,6 @@
         }
     }
         
-    
-
     </style>
     {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
@@ -110,9 +108,8 @@
     
 
     function ForNumbers(evt){
-        console.log('test');
         let charCode = (evt.which) ? evt.which : event.keyCode;
-
+    console.log(charCode);
         if (
             //0~9
             charCode >= 48 && charCode <= 57 ||

@@ -3,7 +3,7 @@ var proportionHeadScent = document.getElementById("created_perfume_proportionHea
 var proportionHeartScent = document.getElementById("created_perfume_proportionHeartScent");
 var proportionBaseScent = document.getElementById("created_perfume_proportionBaseScent");
 
-var ajustmentInHeightProportions=15/100*120*3;
+var ajustmentInHeightProportions=25/100*120*3;
 
 function ajustmentInHeightProportionsHeadHeartBoxes(ajustment){
     if ((Number(proportionHeadScent.value) + Number(proportionHeartScent.value))<=55){
@@ -44,15 +44,17 @@ proportionHeadScent.addEventListener('change', function(){
     proportionBaseScent.value = 100 - proportionHeadScent.value - proportionHeartScent.value;
     if (proportionBaseScent.value<0) {
         proportionBaseScent.value = 0;
-        proportionHeartScent.value = 100 - proportionBaseScent.value - proportionHeadScent.value;
-        let newHeightHeart = proportionHeartScent.value/100*120*3;
-        let newHeightHeartPx = newHeightHeart + "px";
-        document.getElementById("proportionHeartScent").style.height = newHeightHeartPx;
-    } else {
-        let newHeightBase = proportionBaseScent.value/100*120*3;
-        let newHeightBasePx = newHeightBase + "px";
-        document.getElementById("proportionBaseScent").style.height = newHeightBasePx;
     }
+    proportionHeartScent.value = 100 - proportionBaseScent.value - proportionHeadScent.value;
+    let newHeightHeart = proportionHeartScent.value/100*120*3;
+    let newHeightHeartPx = newHeightHeart + "px";
+    document.getElementById("proportionHeartScent").style.height = newHeightHeartPx;
+    //} else {
+    let newHeightBase = proportionBaseScent.value/100*120*3;
+    console.log(newHeightBase);
+    let newHeightBasePx = newHeightBase + "px";
+    document.getElementById("proportionBaseScent").style.height = newHeightBasePx;
+    //}
 
     ajustmentInHeightProportionsHeartBaseBoxes(ajustmentInHeightProportions);
     ajustmentInHeightProportionsHeadHeartBoxes(ajustmentInHeightProportions);
@@ -66,15 +68,14 @@ proportionHeartScent.addEventListener('change', function(){
     proportionHeadScent.value = 100 - proportionBaseScent.value - proportionHeartScent.value;
     if (proportionHeadScent.value<0) {
         proportionHeadScent.value = 0;
-        proportionBaseScent.value = 100 - proportionHeadScent.value - proportionHeartScent.value;
-        let newHeightBase = proportionBaseScent.value/100*120*3;
-        let newHeightBasePx = newHeightBase + "px";
-        document.getElementById("proportionBaseScent").style.height = newHeightBasePx;
-    } else {
-        let newHeightHead = proportionHeadScent.value/100*120*3;
-        let newHeightHeadPx = newHeightHead + "px";
-        document.getElementById("proportionHeadScent").style.height = newHeightHeadPx;
     }
+    proportionBaseScent.value = 100 - proportionHeadScent.value - proportionHeartScent.value;
+    let newHeightBase = proportionBaseScent.value/100*120*3;
+    let newHeightBasePx = newHeightBase + "px";
+    document.getElementById("proportionBaseScent").style.height = newHeightBasePx;
+    let newHeightHead = proportionHeadScent.value/100*120*3;
+    let newHeightHeadPx = newHeightHead + "px";
+    document.getElementById("proportionHeadScent").style.height = newHeightHeadPx;
 
     ajustmentInHeightProportionsHeadHeartBoxes(ajustmentInHeightProportions);
     ajustmentInHeightProportionsHeartBaseBoxes(ajustmentInHeightProportions);
@@ -88,15 +89,14 @@ proportionBaseScent.addEventListener('change', function(){
     proportionHeartScent.value = 100 - proportionHeadScent.value - proportionBaseScent.value;
     if (proportionHeartScent.value<0) {
         proportionHeartScent.value = 0;
-        proportionHeadScent.value = 100 - proportionBaseScent.value - proportionHeartScent.value;
-        let newHeightHead = proportionHeadScent.value/100*120*3;
-        let newHeightHeadPx = newHeightHead + "px";
-        document.getElementById("proportionHeadScent").style.height = newHeightHeadPx;
-    } else {
-        let newHeightHeart = proportionHeartScent.value/100*120*3;
-        let newHeightHeartPx = newHeightHeart + "px";
-        document.getElementById("proportionHeartScent").style.height = newHeightHeartPx;
     }
+    proportionHeadScent.value = 100 - proportionBaseScent.value - proportionHeartScent.value;
+    let newHeightHead = proportionHeadScent.value/100*120*3;
+    let newHeightHeadPx = newHeightHead + "px";
+    document.getElementById("proportionHeadScent").style.height = newHeightHeadPx;
+    let newHeightHeart = proportionHeartScent.value/100*120*3;
+    let newHeightHeartPx = newHeightHeart + "px";
+    document.getElementById("proportionHeartScent").style.height = newHeightHeartPx;
 
     ajustmentInHeightProportionsHeadHeartBoxes(ajustmentInHeightProportions);
     ajustmentInHeightProportionsHeartBaseBoxes(ajustmentInHeightProportions);

@@ -20,8 +20,8 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
-                <td><img src="{{product.image}}" width="250" height="300"></td>
-                <td>{{ product.price }}</td>
+                <td><img src="{{product.image}}" width="300"></td>
+                <td>{{ product.price }} €</td>
                 <td>
                     <a href="{{ path('app_product_show', {'id': product.id}) }}">Montrer</a>
                     <a href="{{ path('app_product_edit', {'id': product.id}) }}">Editer</a>

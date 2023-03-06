@@ -42,6 +42,25 @@ class OrderRepository extends ServiceEntityRepository
 //    /**
 //     * @return Order[] Returns an array of Order objects
 //     */
+    public function findByDate($created_at_init, $created_at_final, $userId=null): array
+    {
+        $query = $this->createQueryBuilder('o')
+            ->where('o.createdAt >= :from')
+            ->andWhere('o.createdAt <= :to')
+            ->setParameter('from', $created_at_init)
+            ->setParameter('to', $created_at_final);
+
+        if ($userId) {
+            $query->andWhere('o.user_id = :userId')
+            ->setParameter('userId', $userId);
+        }
+
+        $query->getQuery()
+        ->getResult();
+
+
+        return $query;
+    }
 //    public function findByExampleField($value): array
 //    {
 //        return $this->createQueryBuilder('o')

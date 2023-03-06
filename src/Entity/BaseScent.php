@@ -74,7 +74,7 @@ class BaseScent
         return $this->scent;
     }
 
-    public function setScent(string $Scent): self
+    public function setScent(string $scent): self
     {
         $this->scent = $scent;
 

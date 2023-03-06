@@ -19,7 +19,7 @@
             <tr>
                 <td>{{ head_scent.id }}</td>
                 <td>{{ head_scent.Scent }}</td>
-                <td><img src="{{head_scent.image}}" width="300" height="300"></td>
+                <td><img src="{{head_scent.image}}" width="300"></td>
                 <td>
                     <a href="{{ path('app_head_scent_show', {'id': head_scent.id}) }}">Montrer</a>
                     <a href="{{ path('app_head_scent_edit', {'id': head_scent.id}) }}">Editer</a>

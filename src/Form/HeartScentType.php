@@ -13,7 +13,7 @@ class HeartScentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('scent')
+            ->add('senteur', null, array('property_path' => 'scent'))
             ->add('image', FileType::class, [
                 'mapped' => false
             ])

@@ -3,9 +3,40 @@
 {% block title %}PurchasedProduct index{% endblock %}
 
 {% block body %}
-    <h1>Mes commandes passées</h1>
+    <h1 style="margin-top: 10px; margin-bottom: 40px">Mes commandes passées</h1>
 
-    <table class="table">
+    <form method="GET">
+    <label for="created_perfume_id">De quel parfum souhaitez-vous voir les commandes ? &nbsp</label>
+        <select name="created_perfume_id" id="created_perfume_id">
+            <option value="">Tous les parfums</option>
+            {% for created_perfume in created_perfumes %}
+            <option value="{{ created_perfume.id }}" {% if app.request.get('created_perfume_id') == created_perfume.id %} selected {% endif
+                %}>{{ created_perfume.name }}</option>
+            {% endfor %}
+        </select>
+    <button>Filtrer</button>
+    </form>
+    <br>
+    <form method="GET">
+        <label for="product_id">De quel produit souhaitez-vous voir les commandes ? &nbsp</label>
+            <select name="product_id" id="product_id">
+                <option value="">Tous les produits</option>
+                {% for product in products %}
+                <option value="{{ product.id }}" {% if app.request.get('product_id') == product.id %} selected {% endif
+                    %}>{{ product }} </option>
+                {% endfor %}
+            </select>
+        <button>Filtrer</button>
+    </form>
+    <br>
+    <form method="GET">
+        <label for="created_at">Dans quel intervalle de date de de création souhaitez-vous voir les commandes ? &nbsp</label>
+            <input type="datetime-local" id="created_at_init" name="created_at_init" value="{{ app.request.get('created_at_init') }}">
+            <input type="datetime-local" id="created_at_final" name="created_at_final" value="{{ app.request.get('created_at_final') }}">
+        <button>Filtrer</button>
+    </form>
+
+    <table class="table" style="margin-top: 30px">
         <thead>
             <tr>
                 <th>Date de commande</th>
