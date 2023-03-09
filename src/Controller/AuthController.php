@@ -91,7 +91,7 @@ class AuthController extends AbstractController
 
             $this->addFlash('activate', 'Vous avez reçu un email pour activer votre compte.');
 
-            return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/register.html.twig', [

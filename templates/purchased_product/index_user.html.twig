@@ -30,7 +30,7 @@
     </form>
     <br>
     <form method="GET">
-        <label for="created_at">Dans quel intervalle de date de de création souhaitez-vous voir les commandes ? &nbsp</label>
+        <label for="created_at">Dans quel intervalle de date de création souhaitez-vous voir les commandes ? &nbsp</label>
             <input type="datetime-local" id="created_at_init" name="created_at_init" value="{{ app.request.get('created_at_init') }}">
             <input type="datetime-local" id="created_at_final" name="created_at_final" value="{{ app.request.get('created_at_final') }}">
         <button>Filtrer</button>
@@ -47,6 +47,7 @@
             </tr>
         </thead>
         <tbody>
+        {% set index = 0 %}
         {% for purchased_product in purchased_products %}
             {% set selected_order = null %}
             {% for order in orders %}
@@ -56,11 +57,11 @@
             {% endfor %}
             {% set selected_created_perfume = null %}
             {% for created_perfume in created_perfumes %}
-                {% if purchased_product.createdPerfume == created_perfume %}
+                {% if purchased_product.createdPerfume == created_perfume and (created_perfume_id == created_perfume.id or created_perfume_id == "") %}
                     {% set selected_created_perfume = created_perfume %}
                 {% endif %}
             {% endfor %}
-            {% if selected_order is not null and selected_created_perfume is not null %}
+            {% if selected_order is not null and selected_created_perfume %}
                 <tr>
                     <td>{{ selected_order.createdAt | date("Y-m-d H:i:s")  }}</td>
                     <td>{{ purchased_product.createdPerfume }}</td>
@@ -74,12 +75,15 @@
                     <td>{{ purchased_product.product }}</td>
                     <td>{{ purchased_product.unitPrice }} €</td>
                 </tr>
+            {% else %}
+                {% set index = index + 1 %}
             {% endif %}
-        {% else %}
+        {% endfor %}
+        {% if index == purchased_products|length %}
             <tr>
                 <td colspan="4">Aucune commande passée</td>
             </tr>
-        {% endfor %}
+        {% endif %} 
         </tbody>
     </table>
 {% endblock %}

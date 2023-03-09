@@ -30,7 +30,7 @@
     </form>
     <br>
     <form method="GET">
-        <label for="created_at">Dans quel intervalle de date de de création souhaitez-vous voir les commandes ? &nbsp</label>
+        <label for="created_at">Dans quel intervalle de date de création souhaitez-vous voir les commandes ? &nbsp</label>
             <input type="datetime-local" id="created_at_init" name="created_at_init" value="{{ app.request.get('created_at_init') }}">
             <input type="datetime-local" id="created_at_final" name="created_at_final" value="{{ app.request.get('created_at_final') }}">
         <button>Filtrer</button>
@@ -58,9 +58,6 @@
                     {% set selected_order = order %}
                 {% endif %}
             {% endfor %}
-            {% if selected_order == null %}
-            {% set index = index + 1 %}
-            {% endif %}
             {% set selected_created_perfume = null %}
             {% for created_perfume in created_perfumes %}
                 {% if purchased_product.createdPerfume == created_perfume %}
@@ -90,6 +87,8 @@
                     <td>{{ purchased_product.product }}</td>
                     <td>{{ purchased_product.unitPrice }} €</td>
                 </tr>
+            {% else %}
+                {% set index = index + 1 %}
             {% endif %}
         {% endfor %}
         {% if index == purchased_products|length %}

@@ -44,20 +44,25 @@ class OrderRepository extends ServiceEntityRepository
 //     */
     public function findByDate($created_at_init, $created_at_final, $userId=null): array
     {
+        if ($userId) {
         $query = $this->createQueryBuilder('o')
+                ->where('o.createdAt >= :from')
+                ->andWhere('o.createdAt <= :to')
+                ->andWhere('o.user = :userId')
+                ->setParameter('from', date("Y-m-d H:i:s", strtotime($created_at_init)))
+                ->setParameter('to', date("Y-m-d H:i:s", strtotime($created_at_final)))
+                ->setParameter('userId', $userId)
+                ->getQuery()
+                ->getResult();
+        } else {
+            $query = $this->createQueryBuilder('o')
             ->where('o.createdAt >= :from')
             ->andWhere('o.createdAt <= :to')
-            ->setParameter('from', $created_at_init)
-            ->setParameter('to', $created_at_final);
-
-        if ($userId) {
-            $query->andWhere('o.user_id = :userId')
-            ->setParameter('userId', $userId);
+            ->setParameter('from', date("Y-m-d H:i:s", strtotime($created_at_init)))
+            ->setParameter('to', date("Y-m-d H:i:s", strtotime($created_at_final)))
+            ->getQuery()
+            ->getResult();          
         }
-
-        $query->getQuery()
-        ->getResult();
-
 
         return $query;
     }

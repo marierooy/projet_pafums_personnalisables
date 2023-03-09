@@ -29,6 +29,8 @@ class PurchasedProductController extends AbstractController
             $filterPurchasedProduct['product'] = $product_id;
         }
 
+        $created_perfumes_id = $request->get('created_perfume_id');
+
         $created_at_init = $request->get('created_at_init');
         $created_at_final = $request->get('created_at_final');
 
@@ -39,8 +41,9 @@ class PurchasedProductController extends AbstractController
 
         }
         return $this->render('purchased_product/index_user.html.twig', [
+            'created_perfume_id' => $created_perfumes_id,
             'created_perfumes' => $createdPerfumeRepository->findby(['user' => $user->getId()]),
-            'orders' => $orderRepository->findby(['user' => $user->getId()]),
+            'orders' => $orders,
             'purchased_products' => $purchasedProductRepository->findBy($filterPurchasedProduct),
             'products' => $productRepository->findall(),
         ]);
