@@ -59,7 +59,7 @@
                                 <hr class="my-2">
                             </div>
                             <div class="card-body pt-0">
-                                {% for perfume in perfumes %}
+                                {% for key_perfume, perfume in perfumes %}
                                 <div class="row  justify-content-between">
                                     <div class="col-auto col-md-7">
                                         <div class="media flex-column flex-sm-row">
@@ -67,7 +67,7 @@
                                                 <div class="row ">
                                                     <div class="col-auto">
                                                         <div class="d-flex flex-row justify-content-between" style="height: 40px; width: 430px">
-                                                            <div style="height: 40px"> Parfum "<b> {{ perfume.getName }}</b>":
+                                                            <div style="height: 40px">Parfum "<b> {{ perfume.getName }}</b>":
                                                             </div>
                                                             <div style="height: 40px; margin-top:-12px">
                                                                 <form method="post" action="{{ path('app_delete_from_cart', {'id': perfume.id}) }}" onsubmit="return confirm('Etes-vous sure de vouloir supprimer ce produit?');">
@@ -79,10 +79,10 @@
                                                             </div>
                                                         </div>
                                                         <ul>
-                                                        {% for product in perfume.getProducts() %}
+                                                        {% for key, product in perfume.getProducts() %}
                                                             <li>
                                                             {{ product.getName() }} <br>
-                                                            {{ product.getPrice() }} €
+                                                            Prix: {{all_product_quantities[key].quantities[selected_key]}} x {{ product.getPrice() }} €
                                                             </li>
                                                         {% endfor %}
                                                         </ul>

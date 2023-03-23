@@ -44,9 +44,6 @@ class CreatedPerfumeType extends AbstractType
             ->add('headScent')
             ->add('heartScent')
             ->add('baseScent')
-            ->add('products', null, [
-                'attr' => ['class' => 'select2-multiple']
-            ])
         ;
     }
 

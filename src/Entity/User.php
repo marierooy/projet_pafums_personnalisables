@@ -65,10 +65,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: CreatedPerfume::class, orphanRemoval: true)]
     private Collection $createdPerfumes;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ProductQuantities::class, orphanRemoval: true)]
+    private Collection $productQuantities;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
         $this->createdPerfumes = new ArrayCollection();
+        $this->productQuantities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -289,6 +293,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($createdPerfume->getUser() === $this) {
                 $createdPerfume->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductQuantities>
+     */
+    public function getProductQuantities(): Collection
+    {
+        return $this->productQuantities;
+    }
+
+    public function addProductQuantity(ProductQuantities $productQuantity): self
+    {
+        if (!$this->productQuantities->contains($productQuantity)) {
+            $this->productQuantities->add($productQuantity);
+            $productQuantity->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductQuantity(ProductQuantities $productQuantity): self
+    {
+        if ($this->productQuantities->removeElement($productQuantity)) {
+            // set the owning side to null (unless already changed)
+            if ($productQuantity->getUser() === $this) {
+                $productQuantity->setUser(null);
             }
         }
 

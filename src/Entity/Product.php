@@ -30,10 +30,14 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: PurchasedProduct::class, orphanRemoval: true)]
     private Collection $purchasedProduct;
 
+    #[ORM\ManyToMany(targetEntity: ProductQuantities::class, inversedBy: 'products')]
+    private Collection $productQuantities;
+
     public function __construct()
     {
         $this->createdPerfumes = new ArrayCollection();
         $this->purchasedProduct = new ArrayCollection();
+        $this->productQuantities = new ArrayCollection();
     }
 
     public function __toString()
@@ -135,6 +139,30 @@ class Product
                 $purchasedProduct->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductQuantities>
+     */
+    public function getProductQuantities(): Collection
+    {
+        return $this->productQuantities;
+    }
+
+    public function addProductQuantity(ProductQuantities $productQuantity): self
+    {
+        if (!$this->productQuantities->contains($productQuantity)) {
+            $this->productQuantities->add($productQuantity);
+        }
+
+        return $this;
+    }
+
+    public function removeProductQuantity(ProductQuantities $productQuantity): self
+    {
+        $this->productQuantities->removeElement($productQuantity);
 
         return $this;
     }

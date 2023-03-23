@@ -46,7 +46,8 @@
                 <th>Parfum</th>
                 <th>Composition</th>
                 <th>Produit</th>
-                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
             </tr>
         </thead>
         <tbody>
@@ -85,6 +86,7 @@
                     </ul>
                     </td>
                     <td>{{ purchased_product.product }}</td>
+                    <td>{{ purchased_product.quantity }}</td>
                     <td>{{ purchased_product.unitPrice }} €</td>
                 </tr>
             {% else %}

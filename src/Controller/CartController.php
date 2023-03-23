@@ -16,9 +16,11 @@ use App\Repository\CreatedPerfumeRepository;
 use App\Repository\OrderRepository as OrderR;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\ProductQuantitiesRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RequestStack;
 use App\Repository\PurchasedProductRepository as PPR;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -31,10 +33,12 @@ class CartController extends AbstractController
     }
     
     #[Route('/cart', name: 'app_cart')]
-    public function index(CreatedPerfumeRepository $createdPerfumeRepo): Response
+    public function index(CreatedPerfumeRepository $createdPerfumeRepo, UserInterface $user, ProductQuantitiesRepository $productQuantitiesRepository, ProductRepository $productRepository): Response
     {
         $total = 0;
         $perfumes = [];
+        $allProductQuantities = [];
+        $products = $productRepository->findAll();
         if (!is_null($this->session->get('cart'))) {
             foreach($this->session->get('cart') as $createdPerfume) {
                 /*$headScentId = $createdPerfume['entity']->getHeadScent()->getId();
@@ -43,10 +47,18 @@ class CartController extends AbstractController
                 $headScent = $headScentRepo->findOneBy(['id' => $headScentId]);*/
 
                 $createdPerfume = $createdPerfumeRepo->findOneBy(['id' => $createdPerfume['entity']->getId()]);
-            
+                $productQuantities = $productQuantitiesRepository->findOneBy(['createdPerfume'=> $createdPerfume, 'user' => $user]);
+
                 $perfumes[] = $createdPerfume;
+                $allProductQuantities[] = $productQuantities;
+
                 foreach($createdPerfume->getProducts() as $product) {
-                    $total += $product->getPrice();
+                    foreach($products as $key => $productBis) {
+                        if($product == $productBis) {
+                            $selected_key = $key;
+                        } 
+                    }
+                    $total += $product->getPrice()*$productQuantities->getQuantities()[$selected_key];
                 }
 
                 //$total += $createdPerfume['entity']->getProducts()->getPrice() ?? 0;
@@ -58,6 +70,8 @@ class CartController extends AbstractController
         return $this->render('cart/index.html.twig', [
            'total' => $total,
            'perfumes' => $perfumes,
+           'all_product_quantities'=> $allProductQuantities,
+           'products' => $products
 
         ]);
     }
@@ -98,9 +112,8 @@ class CartController extends AbstractController
     }
 
     #[Route('/processPayment', name: 'app_processPayment')]
-    public function processPayment(Request $request, OrderR $orderRepo, PPR $purchasedProductRepo, CreatedPerfumeRepository $createdPerfumeRepo, ProductRepository $productRepo): Response
+    public function processPayment(Request $request, ProductQuantitiesRepository $productQuantitiesRepository, UserInterface $user, OrderR $orderRepo, PPR $purchasedProductRepo, CreatedPerfumeRepository $createdPerfumeRepo, ProductRepository $productRepo): Response
     {
-        $total = 0;
 
         /*foreach($this->session->get('cart') as $product) {
             if ($createdPerfume['entity']->getProducts()->count()==0) {
@@ -121,15 +134,22 @@ class CartController extends AbstractController
             $order->setTotal($this->session->get('total'));
             $order->setCreatedAt(new DatetimeImmutable);
             $orderRepo->save($order, true);
+            $products = $productRepo->findAll();
 
             foreach($this->session->get('cart') as $perfume) {
 
                 $newProduct = $createdPerfumeRepo->findOneBy(['id' => $perfume['entity']->getId()]);
+                $productQuantities = $productQuantitiesRepository->findOneBy(['createdPerfume'=> $newProduct, 'user' => $user]);
 
                 foreach($newProduct->getProducts() as $product) {
+                    foreach($products as $keyBis => $productBis) {
+                        if($product == $productBis) {
+                            $selected_key = $keyBis;
+                        } 
+                    } 
                     $purchased = new PurchasedProduct;
                     $purchased->setUnitPrice($product->getPrice());
-                    $purchased->setQuantity("1");
+                    $purchased->setQuantity($productQuantities->getQuantities()[$selected_key]);
                     $purchased->setCommande($order);
                     $purchased->setProduct($product);
                     $purchased->setCreatedPerfume($newProduct);

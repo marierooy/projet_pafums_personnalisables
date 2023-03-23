@@ -56,10 +56,14 @@ class CreatedPerfume
     #[ORM\OneToMany(mappedBy: 'createdPerfume', targetEntity: PurchasedProduct::class, orphanRemoval: true)]
     private Collection $purchasedProducts;
 
+    #[ORM\OneToMany(mappedBy: 'createdPerfume', targetEntity: ProductQuantities::class, orphanRemoval: true)]
+    private Collection $productQuantities;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
         $this->purchasedProducts = new ArrayCollection();
+        $this->productQuantities = new ArrayCollection();
     }
 
     public function __toString()
@@ -216,6 +220,36 @@ class CreatedPerfume
             // set the owning side to null (unless already changed)
             if ($purchasedProduct->getCreatedPerfume() === $this) {
                 $purchasedProduct->setCreatedPerfume(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductQuantities>
+     */
+    public function getProductQuantities(): Collection
+    {
+        return $this->productQuantities;
+    }
+
+    public function addProductQuantity(ProductQuantities $productQuantity): self
+    {
+        if (!$this->productQuantities->contains($productQuantity)) {
+            $this->productQuantities->add($productQuantity);
+            $productQuantity->setCreatedPerfume($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductQuantity(ProductQuantities $productQuantity): self
+    {
+        if ($this->productQuantities->removeElement($productQuantity)) {
+            // set the owning side to null (unless already changed)
+            if ($productQuantity->getCreatedPerfume() === $this) {
+                $productQuantity->setCreatedPerfume(null);
             }
         }
 
