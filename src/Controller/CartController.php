@@ -52,13 +52,12 @@ class CartController extends AbstractController
                 $perfumes[] = $createdPerfume;
                 $allProductQuantities[] = $productQuantities;
 
-                foreach($createdPerfume->getProducts() as $product) {
-                    foreach($products as $key => $productBis) {
-                        if($product == $productBis) {
-                            $selected_key = $key;
-                        } 
+                foreach($createdPerfume->getProducts() as $key => $product) {
+                    if (isset($productQuantities)) {
+                        $total += $product->getPrice()*$productQuantities->getQuantities()[$key];
+                    } else {
+                        $total += $product->getPrice();
                     }
-                    $total += $product->getPrice()*$productQuantities->getQuantities()[$selected_key];
                 }
 
                 //$total += $createdPerfume['entity']->getProducts()->getPrice() ?? 0;
