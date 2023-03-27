@@ -82,7 +82,7 @@
                                                         {% for key, product in perfume.getProducts() %}
                                                             <li>
                                                             {{ product.getName() }} <br>
-                                                            {{ all_product_quantities[key_perfume] }} <br>
+                                                            {{ dump(all_product_quantities[key_perfume]) }} <br>
                                                             {% if all_product_quantities[key_perfume].quantities is defined %} 
                                                             Prix: {{all_product_quantities[key_perfume].quantities[key]}} x {{ product.getPrice() }} €
                                                             {% else %} 
