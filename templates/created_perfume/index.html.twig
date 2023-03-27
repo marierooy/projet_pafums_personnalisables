@@ -47,11 +47,11 @@
             <div style='margin-top: 50px; margin-bottom: 30px'>
                 <h2>{{ created_perfume.name }}</h2>
             </div>
-            <div style='height:40px; width:60px; border:solid; border-top: none'>
+            <div id="perfume_box" style='height:40px; width:60px; border:solid; border-top: none'>
             </div>
         </div>
 
-        <div class="d-flex flex-row align-items-center justify-content-center">
+        <div id="perfume_box" class="d-flex flex-row align-items-center justify-content-center">
             <div id='proportionHeadScentInput' style='height: 0px; width: 350px; position: relative; bottom:0px'>
                 <pre style='position: relative; bottom: 10px; left:180px'>
                     {{ created_perfume.ProportionHeadScent }} %
@@ -66,7 +66,7 @@
             </div>
         </div>
         
-        <div class="d-flex flex-row align-items-center justify-content-center">
+        <div id="perfume_box" class="d-flex flex-row align-items-center justify-content-center">
             <div id='proportionHeartScentInput' style='height: 0px; width: 350px; position: relative; top:0px'>
                 <pre style='position: relative; bottom: 10px; left:180px'>
                     {{ created_perfume.ProportionHeartScent }} %
@@ -81,7 +81,7 @@
             </div>
         </div>
 
-        <div class="d-flex flex-row align-items-center justify-content-center">
+        <div id="perfume_box" class="d-flex flex-row align-items-center justify-content-center">
             <div id='proportionBaseScentInput' style='height: 0px; width: 350px; position: relative; top:0px'>
             <pre style='position: relative; bottom: 38px; left:200px'> 
                 {{ created_perfume.ProportionBaseScent }} %
@@ -100,7 +100,7 @@
             <div style='margin-top: 40px'>
                 <ul style='list-style: none'>
                 {% for key, product in created_perfume.Products %}
-                    <li style="display: flex; flex-wrap: wrap">
+                    <li>
                     {{ product.getName() }} <br>
                     {{ product.getPrice() }} € <br>
                     {% if (selected_product_quantities is not empty) %}
