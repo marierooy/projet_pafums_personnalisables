@@ -100,7 +100,7 @@
             <div style='margin-top: 40px'>
                 <ul style='list-style: none'>
                 {% for key, product in created_perfume.Products %}
-                    <li>
+                    <li style="display: flex; flex-wrap: wrap">
                     {{ product.getName() }} <br>
                     {{ product.getPrice() }} € <br>
                     {% if (selected_product_quantities is not empty) %}
