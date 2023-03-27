@@ -36,7 +36,7 @@
         {% endif %}
     {% endfor %}
     <div id="perfume" class="d-flex flex-column align-items-center justify-content-start" style="width:480px; height: auto; border: 0.25rem solid;">
-        <div style="display: flex; flex-wrap: wrap; width:480px; height:30px; margin-top:50px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; width:480px; height:30px; margin-top:50px">
             <div class="d-flex flex-row align-items-center justify-content-center">
             <a style="margin-right: 20px" href="{{ path('app_created_perfume_edit', {'id': created_perfume.id}) }}"><button class="btn btn-primary">Editer</button></a>
             {{ include('created_perfume/_delete_form.html.twig') }}
