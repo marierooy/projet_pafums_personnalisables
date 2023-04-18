@@ -43,6 +43,7 @@
             </div>
             <a id="add_to_cart" style="margin-left: 20px" href="{{ path('app_add_to_cart', {id: created_perfume.id}) }}"><button class="btn btn-primary">Ajouter au panier <i class="fas fa-shopping-cart"></i></button></a>
         </div>
+        
         <div class="d-flex flex-column align-items-center justify-content-center">
             <div style='margin-top: 50px; margin-bottom: 30px'>
                 <h2>{{ created_perfume.name }}</h2>
@@ -51,47 +52,29 @@
             </div>
         </div>
 
-        <div id="perfume_box" class="d-flex flex-row align-items-center justify-content-center">
-            <div id='proportionHeadScentInput' style='height: 0px; width: 350px; position: relative; bottom:0px'>
-                <pre style='position: relative; bottom: 10px; left:180px'>
-                    {{ created_perfume.ProportionHeadScent }} %
-                </pre>
+        <div id='proportionHeadScent' style='position: relative; display: flex; justify-content: center; align-items: center; height:{{created_perfume.ProportionHeadScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ head_scents[selected_key_head].image }}"); background-size: cover; border:solid; margin-top: -1px'>
+            <div style='height: 20px; width: 150px; position: absolute; top: 50%; transform: translate(0%, -50%); right: 10px'>
+                {{ created_perfume.ProportionHeadScent }} %
             </div>
-            <div id='proportionHeadScent' style='height:{{created_perfume.ProportionHeadScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ head_scents[selected_key_head].image }}"); background-size: cover; border:solid; margin-top: -1px'>
+            <div style='height: 20px; width: 150px; position: absolute; top: 50%; transform: translate(0%, -50%); left: 100px'>
+                {{ created_perfume.HeadScent }} 
             </div>
-            <div id='headScentInput' style='height: 0px; width: 350px; position: relative; bottom:0px'>
-                <pre style='position: relative; bottom: 10px; left:-50px'>
-                    {{ created_perfume.HeadScent }}
-                </pre>
+        </div>
+        <div id='proportionHeartScent' style='position: relative; display: flex; justify-content: center; align-items: center; height:{{created_perfume.ProportionHeartScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ heart_scents[selected_key_heart].image }}"); background-size: cover; border:solid; margin-top: -1px'>
+            <div style='height: 20px; width: 150px; position: absolute; top: 50%; transform: translate(0%, -50%); right: 10px'>
+                {{ created_perfume.ProportionHeartScent }} %
+            </div>
+            <div style='height: 20px; width: 150px; position: absolute; top: 50%; transform: translate(0%, -50%); left:100px'>
+                {{ created_perfume.HeartScent }}
             </div>
         </div>
         
-        <div id="perfume_box" class="d-flex flex-row align-items-center justify-content-center">
-            <div id='proportionHeartScentInput' style='height: 0px; width: 350px; position: relative; top:0px'>
-                <pre style='position: relative; bottom: 10px; left:180px'>
-                    {{ created_perfume.ProportionHeartScent }} %
-                </pre>
-            </div>
-            <div id='proportionHeartScent' style='height:{{created_perfume.ProportionHeartScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ heart_scents[selected_key_heart].image }}"); background-size: cover; border:solid; margin-top: -1px'>
-            </div>
-            <div id='heartScentInput' style='height: 0px; width: 350px; position: relative; bottom:0px'>
-                <pre style='position: relative; bottom: 10px; left:-50px'>
-                    {{ created_perfume.HeartScent }}
-                </pre>
-            </div>
-        </div>
-
-        <div id="perfume_box" class="d-flex flex-row align-items-center justify-content-center">
-            <div id='proportionBaseScentInput' style='height: 0px; width: 350px; position: relative; top:0px'>
-            <pre style='position: relative; bottom: 38px; left:200px'> 
+        <div id='proportionBaseScent' style='position: relative; display: flex; justify-content: center; align-items: center; height:{{created_perfume.ProportionBaseScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ base_scents[selected_key_base].image }}"); background-size: cover; border:solid; margin-top: -1px; border-radius: 0px 0px 40px 40px;'>
+            <div style='height: 20px; width: 150px; position: absolute; top: 50%; transform: translate(0%, -50%); right: 10px'>
                 {{ created_perfume.ProportionBaseScent }} %
-            </pre>
             </div>
-            <div id='proportionBaseScent' style='height:{{created_perfume.ProportionBaseScent/100*120*3}}px; min-width: 60px; width:60px; background-image: url("{{ base_scents[selected_key_base].image }}"); background-size: cover; border:solid; margin-top: -1px; border-radius: 0px 0px 40px 40px;'></div>
-            <div id='baseScentInput' style='height: 0px; width: 350px; position: relative; bottom:0px'>
-                <pre style='position: relative; bottom: 10px; left:-50px'>
-                    {{ created_perfume.BaseScent }}
-                </pre>
+            <div style='height: 20px; width: 150px; position: absolute; top: 50%; transform: translate(0%, -50%); left: 100px'>
+                {{ created_perfume.BaseScent }} 
             </div>
         </div>
 

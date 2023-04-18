@@ -46,15 +46,12 @@ class CreatedPerfumeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $quantities = array_filter($request->get('product_quantity'));
             $productId = $request->get('product_id');
-            $product = $request->get('product');
 
             $createdPerfume->setUser($user);
-            $createdPerfumeRepository->save($createdPerfume, true);
 
             $productQuantities->setCreatedPerfume($createdPerfume);
             $productQuantities->setQuantities(array_values($quantities));
             $productQuantities->setUser($user);
-            $productQuantitiesRepository->save($productQuantities, true);
 
             foreach($quantities as $key => $quantity) {
                 $product = $productRepository->findOneBy(['id' => $productId[$key]]);
@@ -77,14 +74,6 @@ class CreatedPerfumeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_created_perfume_show', methods: ['GET'])]
-    public function show(CreatedPerfume $createdPerfume): Response
-    {
-        return $this->render('created_perfume/show.html.twig', [
-            'created_perfume' => $createdPerfume,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'app_created_perfume_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, UserInterface $user, ProductQuantitiesRepository $productQuantitiesRepository, ProductRepository $productRepository, CreatedPerfume $createdPerfume, CreatedPerfumeRepository $createdPerfumeRepository, BaseScentRepository $baseScentRepository, HeartScentRepository $heartScentRepository, HeadScentRepository $headScentRepository): Response
     {
@@ -94,7 +83,6 @@ class CreatedPerfumeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $quantities = array_filter($request->get('product_quantity'));
             $productId = $request->get('product_id');
-            $product = $request->get('product');
 
             $productQuantities = $productQuantitiesRepository->findOneBy(['createdPerfume'=> $createdPerfume, 'user' => $user]);
             if (!$productQuantities) {
