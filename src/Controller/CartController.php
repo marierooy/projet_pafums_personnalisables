@@ -41,10 +41,6 @@ class CartController extends AbstractController
         $products = $productRepository->findAll();
         if (!is_null($this->session->get('cart'))) {
             foreach($this->session->get('cart') as $createdPerfume) {
-                /*$headScentId = $createdPerfume['entity']->getHeadScent()->getId();
-                $heartScentId = $createdPerfume['entity']->getHeartScent()->getId();
-                $baseScentId = $createdPerfume['entity']->getBaseScent()->getId();
-                $headScent = $headScentRepo->findOneBy(['id' => $headScentId]);*/
 
                 $createdPerfume = $createdPerfumeRepo->findOneBy(['id' => $createdPerfume['entity']->getId()]);
                 $productQuantities = $productQuantitiesRepository->findOneBy(['createdPerfume'=> $createdPerfume, 'user' => $user]);
