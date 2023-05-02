@@ -30,7 +30,7 @@ class UserType extends AbstractType
                 'label' => 'Votre adresse',
             ])
             ->add('city', null, [
-                'label' => 'Votre Ville',
+                'label' => 'Votre ville',
             ])
             ->add('zipCode', null, [
                 'label' => 'Votre code postal',

@@ -31,4 +31,12 @@ class PageController extends AbstractController
             'controller_name' => 'PageController',
         ]);
     }
+
+    #[Route('/mentions/legales', name: 'app_mentions_legales')]
+    public function mentionsLégales(): Response
+    {
+        return $this->render('page/mentions_legales.html.twig', [
+            'controller_name' => 'PageController',
+        ]);
+    }
 }
