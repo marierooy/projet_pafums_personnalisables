@@ -32,8 +32,16 @@ class PageController extends AbstractController
         ]);
     }
 
+    #[Route('/politique/confidentialite', name: 'app_politique_confidentialité')]
+    public function politiqueConfidentialite(): Response
+    {
+        return $this->render('page/politique_confidentialite.html.twig', [
+            'controller_name' => 'PageController',
+        ]);
+    }
+
     #[Route('/mentions/legales', name: 'app_mentions_legales')]
-    public function mentionsLégales(): Response
+    public function mentionsLegales(): Response
     {
         return $this->render('page/mentions_legales.html.twig', [
             'controller_name' => 'PageController',
