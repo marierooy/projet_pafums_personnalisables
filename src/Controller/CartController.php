@@ -140,7 +140,7 @@ class CartController extends AbstractController
                 $text = '<h1>Bonjour</h1>
                 <p>Voici les détails de votre commande</p>
                 <ul>';
-                var_dump($text);
+                dd($text);
 
                 foreach($newProduct->getProducts() as $key => $product) {
                     $purchased = new PurchasedProduct;
