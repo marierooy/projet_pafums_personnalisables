@@ -151,7 +151,7 @@ class CartController extends AbstractController
                     $purchasedProductRepo->save($purchased, true);
                     $text = $text.'<li>'.$product->getName().' <br> Prix: '.$purchased->getQuantity().'€ x '.$purchased->getUnitPrice().'</li>';
                 }
-                $text.='</ul><br><p>Total: '.$order->getTotal().'€</p>';
+                $text = $text.'</ul><br><p>Total: '.$order->getTotal().'€</p>';
                 $email = (new Email())
                 ->from('identite-olfactive@ecom.fr')
                 ->to($user->getEmail())
