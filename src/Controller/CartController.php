@@ -136,15 +136,10 @@ class CartController extends AbstractController
                 $newProduct = $createdPerfumeRepo->findOneBy(['id' => $perfume['entity']->getId()]);
                 $productQuantities = $productQuantitiesRepository->findOneBy(['createdPerfume'=> $newProduct, 'user' => $user]);
 
-                foreach($newProduct->getProducts() as $product) {
-                    foreach($products as $keyBis => $productBis) {
-                        if($product == $productBis) {
-                            $selected_key = $keyBis;
-                        } 
-                    } 
+                foreach($newProduct->getProducts() as $key => $product) {
                     $purchased = new PurchasedProduct;
                     $purchased->setUnitPrice($product->getPrice());
-                    $purchased->setQuantity($productQuantities->getQuantities()[$selected_key]);
+                    $purchased->setQuantity($productQuantities->getQuantities()[$key]);
                     $purchased->setCommande($order);
                     $purchased->setProduct($product);
                     $purchased->setCreatedPerfume($newProduct);

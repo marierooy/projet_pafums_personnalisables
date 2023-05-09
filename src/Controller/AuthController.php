@@ -76,7 +76,7 @@ class AuthController extends AbstractController
             $user->setPassword($hashedPassword);
 
             $email = (new Email())
-            ->from('test@ecom.fr')
+            ->from('identite-olfactive@ecom.fr')
             ->to($user->getEmail())
             ->subject('Activez votre compte sur le site "Identité Olfactive"')
             ->html('
