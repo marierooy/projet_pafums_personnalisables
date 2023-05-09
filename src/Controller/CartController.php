@@ -137,9 +137,9 @@ class CartController extends AbstractController
                 $newProduct = $createdPerfumeRepo->findOneBy(['id' => $perfume['entity']->getId()]);
                 $productQuantities = $productQuantitiesRepository->findOneBy(['createdPerfume'=> $newProduct, 'user' => $user]);
 
-                $text = '<h1>Bonjour</h1>
+/*                 $text = '<h1>Bonjour</h1>
                 <p>Voici les détails de votre commande</p>
-                <ul>';
+                <ul>'; */
 
                 foreach($newProduct->getProducts() as $key => $product) {
                     $purchased = new PurchasedProduct;
@@ -149,9 +149,9 @@ class CartController extends AbstractController
                     $purchased->setProduct($product);
                     $purchased->setCreatedPerfume($newProduct);
                     $purchasedProductRepo->save($purchased, true);
-                    $text.='<li>'.$product.getName().' <br> Prix: '.$purchased.getQuantity().'€ x '.$purchased.getUnitPrice().'</li>';
+                    /* $text.='<li>'.$product.getName().' <br> Prix: '.$purchased.getQuantity().'€ x '.$purchased.getUnitPrice().'</li>'; */
                 }
-                $text.='</ul><br><p>Total: '.$order.getTotal().'€</p>';
+                /* $text.='</ul><br><p>Total: '.$order.getTotal().'€</p>'; */
 /*                 $email = (new Email())
                 ->from('identite-olfactive@ecom.fr')
                 ->to($user->getEmail())
