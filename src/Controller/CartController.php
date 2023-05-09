@@ -137,9 +137,9 @@ class CartController extends AbstractController
                 $newProduct = $createdPerfumeRepo->findOneBy(['id' => $perfume['entity']->getId()]);
                 $productQuantities = $productQuantitiesRepository->findOneBy(['createdPerfume'=> $newProduct, 'user' => $user]);
 
-/*                 $text = '<h1>Bonjour</h1>
+                $text = '<h1>Bonjour</h1>
                 <p>Voici les détails de votre commande</p>
-                <ul>'; */
+                <ul>';
 
                 foreach($newProduct->getProducts() as $key => $product) {
                     $purchased = new PurchasedProduct;
