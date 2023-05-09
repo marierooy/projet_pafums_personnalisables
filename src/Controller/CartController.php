@@ -140,7 +140,6 @@ class CartController extends AbstractController
                 $text = '<h1>Bonjour</h1>
                 <p>Voici les détails de votre commande</p>
                 <ul>';
-                dd($text);
 
                 foreach($newProduct->getProducts() as $key => $product) {
                     $purchased = new PurchasedProduct;
@@ -153,12 +152,12 @@ class CartController extends AbstractController
                     $text.='<li>'.$product.getName().' <br> Prix: '.$purchased.getQuantity().'€ x '.$purchased.getUnitPrice().'</li>';
                 }
                 $text.='</ul><br><p>Total: '.$order.getTotal().'€</p>';
-                $email = (new Email())
+/*                 $email = (new Email())
                 ->from('identite-olfactive@ecom.fr')
                 ->to($user->getEmail())
                 ->subject('Votre commande sur le site "Identité Olfactive"') 
                 ->html($text);
-                $mailer->send($email);
+                $mailer->send($email); */
                 
             }
             $this->session->set('cart', []);
