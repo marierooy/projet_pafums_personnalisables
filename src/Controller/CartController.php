@@ -8,6 +8,7 @@ use App\Entity\Product;
 use Psr\Log\LoggerInterface;
 use App\Entity\CreatedPerfume;
 use App\Entity\PurchasedProduct;
+use Symfony\Component\Mime\Email;
 use App\Repository\ProductRepository;
 use App\Repository\BaseScentRepository;
 use App\Repository\HeadScentRepository;
@@ -152,12 +153,12 @@ class CartController extends AbstractController
                     $text = $text.'<li>'.$product->getName().' <br> Prix: '.$purchased->getQuantity().'€ x '.$purchased->getUnitPrice().'</li>';
                 }
                 $text = $text.'</ul><br><p>Total: '.$order->getTotal().'€</p>';
- /*                $email = (new Email())
+                $email = (new Email())
                 ->from('identite-olfactive@ecom.fr')
                 ->to($user->getEmail())
                 ->subject('Votre commande sur le site "Identité Olfactive"') 
                 ->html($text);
-                $mailer->send($email);  */
+                $mailer->send($email);
                 
             }
             $this->session->set('cart', []);
