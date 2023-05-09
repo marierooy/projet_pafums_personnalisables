@@ -15,6 +15,7 @@ use App\Repository\HeartScentRepository;
 use App\Repository\CreatedPerfumeRepository;
 use App\Repository\OrderRepository as OrderR;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\ProductQuantitiesRepository;
 use Symfony\Component\Routing\Annotation\Route;
@@ -107,7 +108,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/processPayment', name: 'app_processPayment')]
-    public function processPayment(Request $request, ProductQuantitiesRepository $productQuantitiesRepository, UserInterface $user, OrderR $orderRepo, PPR $purchasedProductRepo, CreatedPerfumeRepository $createdPerfumeRepo, ProductRepository $productRepo): Response
+    public function processPayment(Request $request, ProductQuantitiesRepository $productQuantitiesRepository, UserInterface $user, OrderR $orderRepo, PPR $purchasedProductRepo, CreatedPerfumeRepository $createdPerfumeRepo, ProductRepository $productRepo, MailerInterface $mailer): Response
     {
 
         /*foreach($this->session->get('cart') as $product) {
@@ -136,6 +137,10 @@ class CartController extends AbstractController
                 $newProduct = $createdPerfumeRepo->findOneBy(['id' => $perfume['entity']->getId()]);
                 $productQuantities = $productQuantitiesRepository->findOneBy(['createdPerfume'=> $newProduct, 'user' => $user]);
 
+                $text = '<h1>Bonjour</h1>
+                <p>Voici les détails de votre commande</p>
+                <ul>';
+
                 foreach($newProduct->getProducts() as $key => $product) {
                     $purchased = new PurchasedProduct;
                     $purchased->setUnitPrice($product->getPrice());
@@ -144,10 +149,17 @@ class CartController extends AbstractController
                     $purchased->setProduct($product);
                     $purchased->setCreatedPerfume($newProduct);
                     $purchasedProductRepo->save($purchased, true);
+                    $text.='<li>'.$product.getName().' <br> Prix: '.$purchased.getQuantity().'€ x '.$purchased.getUnitPrice().'</li>';
                 }
-                // Attention, ce qui suit est degeu mais bon sinon ca marche pas
-                // Je récupère le produit grâce à l'id que j'ai dans ma session (dans l'entitée)
-                // Aucune idée de pourquoi l'entitée de la session ne fonctionne pas
+                $text.='</ul><br><p>Total: '.$order.getTotal().'€</p>';
+                echo $text;
+                $email = (new Email())
+                ->from('identite-olfactive@ecom.fr')
+                ->to($user->getEmail())
+                ->subject('Votre commande sur le site "Identité Olfactive"') 
+                ->html($text);
+                $mailer->send($email);
+                
             }
             $this->session->set('cart', []);
             
