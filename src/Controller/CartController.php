@@ -149,7 +149,7 @@ class CartController extends AbstractController
                     $purchased->setProduct($product);
                     $purchased->setCreatedPerfume($newProduct);
                     $purchasedProductRepo->save($purchased, true);
-                    /* $text.='<li>'.$product.getName().' <br> Prix: '.$purchased.getQuantity().'€ x '.$purchased.getUnitPrice().'</li>'; */
+                    $text = $text.'<li>'.$product.getName().' <br> Prix: '.$purchased.getQuantity().'€ x '.$purchased.getUnitPrice().'</li>';
                 }
                 /* $text.='</ul><br><p>Total: '.$order.getTotal().'€</p>'; */
 /*                 $email = (new Email())
