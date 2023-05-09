@@ -133,14 +133,15 @@ class CartController extends AbstractController
             $orderRepo->save($order, true);
             $products = $productRepo->findAll();
 
+            $text = '<p>Bonjour,</p>
+                <p>Voici les détails de votre commande:</p>';
+
             foreach($this->session->get('cart') as $perfume) {
 
                 $newProduct = $createdPerfumeRepo->findOneBy(['id' => $perfume['entity']->getId()]);
                 $productQuantities = $productQuantitiesRepository->findOneBy(['createdPerfume'=> $newProduct, 'user' => $user]);
 
-                $text = '<p>Bonjour,</p>
-                <p>Voici les détails de votre commande:</p>
-                <ul>';
+                $text = $text.'<p>Parfum "<strong>'.$newProduct->getName().'</strong>":</p><ul>';
 
                 foreach($newProduct->getProducts() as $key => $product) {
                     $purchased = new PurchasedProduct;
@@ -152,15 +153,16 @@ class CartController extends AbstractController
                     $purchasedProductRepo->save($purchased, true);
                     $text = $text.'<li>'.$product->getName().' <br> Prix: '.$purchased->getQuantity().' x '.$purchased->getUnitPrice().'€</li>';
                 }
-                $text = $text.'</ul><p>Total: '.$order->getTotal().'€</p>';
-                $email = (new Email())
-                ->from('identite-olfactive@ecom.fr')
-                ->to($user->getEmail())
-                ->subject('Votre commande sur le site "Identité Olfactive"') 
-                ->html($text);
-                $mailer->send($email);
-                
+                $text = $text.'</ul>';
             }
+            $text = $text.'<p>Total: '.$order->getTotal().'€</p>';
+            $email = (new Email())
+            ->from('identite-olfactive@ecom.fr')
+            ->to($user->getEmail())
+            ->subject('Votre commande sur le site "Identité Olfactive"') 
+            ->html($text);
+            $mailer->send($email);
+
             $this->session->set('cart', []);
             
             return new Response(true);
