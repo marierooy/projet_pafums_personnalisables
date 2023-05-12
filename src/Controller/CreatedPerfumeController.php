@@ -57,9 +57,9 @@ class CreatedPerfumeController extends AbstractController
                 $product = $productRepository->findOneBy(['id' => $productId[$key]]);
                 $createdPerfume->addProduct($product);
                 $productQuantities->addProduct($product);
-                $createdPerfumeRepository->save($createdPerfume,true);
-                $productQuantitiesRepository->save($productQuantities,true);
             }
+           $productQuantitiesRepository->save($productQuantities,true);
+           $createdPerfumeRepository->save($createdPerfume,true);
 
             return $this->redirectToRoute('app_created_perfume_index', [], Response::HTTP_SEE_OTHER);
         }

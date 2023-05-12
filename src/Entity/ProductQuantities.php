@@ -16,7 +16,7 @@ class ProductQuantities
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'productQuantities')]
+    #[ORM\ManyToOne(inversedBy: 'productQuantities', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?CreatedPerfume $createdPerfume = null;
 
@@ -34,7 +34,6 @@ class ProductQuantities
     {
         $this->products = new ArrayCollection();
     }
-
     public function getId(): ?int
     {
         return $this->id;

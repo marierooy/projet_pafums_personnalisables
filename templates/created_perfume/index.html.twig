@@ -35,7 +35,7 @@
             {% set selected_key_base = key %}
         {% endif %}
     {% endfor %}
-    <div id="perfume" class="d-flex flex-column align-items-center justify-content-start" style="width:480px; height: auto; border: 0.25rem solid;">
+    <div id="perfume" class="d-flex flex-column align-items-center justify-content-start" style="width:480px; border: 0.25rem solid;">
         <div id="perfume_actions" style="display: flex; flex-direction: row; align-items: center; justify-content: center; width:480px; height:30px; margin-top:50px">
             <div class="d-flex flex-row align-items-center justify-content-center">
             <a style="margin-right: 20px" href="{{ path('app_created_perfume_edit', {'id': created_perfume.id}) }}"><button class="btn btn-primary">Editer</button></a>
@@ -81,7 +81,7 @@
         <div class="d-flex w-100 flex-column align-items-center justify-content-center" style='margin-top: 40px'>
             <h4>Forme(s) du parfum:</h4>
             <div style='margin-top: 40px'>
-                <ul style='list-style: none'>
+                <ul>
                 {% for key, product in created_perfume.Products %}
                     <li>
                     {{ product.getName() }} <br>
@@ -121,13 +121,11 @@ const range = function(start, end, step) {
 
 created_perfumes = JSON.parse('{{ created_perfumes | json_encode | raw }}');
 
-height = $('#perfume').outerHeight();
-
-console.log(rowlength);
+height = $('#perfumes div:last-child').last().outerHeight();
 
 text = "";
 
-if(rowlength != 1) {
+if(created_perfumes.length % rowlength != 0) {
     max = rowlength - created_perfumes.length % rowlength;
 } else {
     max = 0;
@@ -139,4 +137,5 @@ text+=`<div style="width:480px; height:`+ height +`px; border: 0.25rem solid;"> 
 
 document.getElementById("fillRow").innerHTML = text;
 </script>
+
 {% endblock %} 
