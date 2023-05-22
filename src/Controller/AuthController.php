@@ -80,9 +80,11 @@ class AuthController extends AbstractController
             ->to($user->getEmail())
             ->subject('Activez votre compte sur le site "Identité Olfactive"')
             ->html('
-                <h1>Bonjour</h1>
+                <p>Bonjour,</p>
                 <p>Veuillez activer votre compte en cliquant sur le lien ci-dessous</p>
                 <a href="' . $this->generateUrl('app_activate', ['token' => $user->getToken()], UrlGeneratorInterface::ABSOLUTE_URL) . '">Activer mon compte</a>
+                <p>Cordialement,</p>
+                <p>Identité Olfactive</p>
             ');
 
             $mailer->send($email);
@@ -109,8 +111,10 @@ class AuthController extends AbstractController
             $user->setToken(null);
             $userRepository->save($user, true);
         }
+
+        $this->addFlash('activate', 'Votre compte est bien activé.');
         
-        return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route(path: '/logout', name: 'app_logout')]

@@ -32,7 +32,7 @@ class PageController extends AbstractController
         ]);
     }
 
-    #[Route('/politique/confidentialite', name: 'app_politique_confidentialité')]
+    #[Route('/politique/confidentialite', name: 'app_politique_confidentialite')]
     public function politiqueConfidentialite(): Response
     {
         return $this->render('page/politique_confidentialite.html.twig', [
