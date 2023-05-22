@@ -22,6 +22,7 @@ class CreatedPerfumeType extends AbstractType
                 'attr' => [
                   'min' => 0,
                   'max' => 100,
+                  'maxlength' => 3,
                   'int' => true,
                 ]
             ])
@@ -30,6 +31,7 @@ class CreatedPerfumeType extends AbstractType
                 'attr' => [
                   'min' => 0,
                   'max' => 100,
+                  'maxlength' => 3,
                   'int' => true,
                 ]
             ])
@@ -38,6 +40,7 @@ class CreatedPerfumeType extends AbstractType
                 'attr' => [
                   'min' => 0,
                   'max' => 100,
+                  'maxlength' => 3,
                   'int' => true,
                 ]
             ])
