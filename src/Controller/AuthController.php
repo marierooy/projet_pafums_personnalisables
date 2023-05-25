@@ -75,17 +75,19 @@ class AuthController extends AbstractController
 
             $user->setPassword($hashedPassword);
 
+            
+            $text = '<p>Bonjour,</p>
+                <p>Veuillez activer votre compte en cliquant sur le lien ci-dessous</p>
+                <a href="' . $this->generateUrl('app_activate', ['token' => $user->getToken()], UrlGeneratorInterface::ABSOLUTE_URL) . '">Activer mon compte</a>
+                <p>Cordialement,</p>';
+                
+            $text = $text . "<p>L'équipe d'Identité olfactive</p>";
+
             $email = (new Email())
             ->from('identite-olfactive@ecom.fr')
             ->to($user->getEmail())
             ->subject('Activez votre compte sur le site "Identité Olfactive"')
-            ->html('
-                <p>Bonjour,</p>
-                <p>Veuillez activer votre compte en cliquant sur le lien ci-dessous</p>
-                <a href="' . $this->generateUrl('app_activate', ['token' => $user->getToken()], UrlGeneratorInterface::ABSOLUTE_URL) . '">Activer mon compte</a>
-                <p>Cordialement,</p>
-                <p>Identité Olfactive</p>
-            ');
+            ->html($text);
 
             $mailer->send($email);
     

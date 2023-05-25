@@ -151,11 +151,13 @@ class CartController extends AbstractController
                     $purchased->setProduct($product);
                     $purchased->setCreatedPerfume($newProduct);
                     $purchasedProductRepo->save($purchased, true);
-                    $text = $text.'<li>'.$product->getName().' <br> Prix: '.$purchased->getQuantity().' x '.$purchased->getUnitPrice().'€</li>';
+                    $text = $text.'<li>'.$product->getName().' <br> Prix: '.$purchased->getQuantity().' x '.$purchased->getUnitPrice().'€ (prix unitaire)</li>';
                 }
                 $text = $text.'</ul>';
             }
             $text = $text.'<p>Total: '.$order->getTotal().'€</p>';
+            $text = $text.'<p>Cordialement,</p>';
+            $text = $text."<p>l'équipe d'Identité olfactive</p>";
             $email = (new Email())
             ->from('identite-olfactive@ecom.fr')
             ->to($user->getEmail())

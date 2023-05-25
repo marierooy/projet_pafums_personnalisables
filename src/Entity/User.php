@@ -266,7 +266,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     
     public function getCompleteAddress() {
-        return $this->address . ' ' . $this->city . ' ' . $this->zipCode . ' ' . $this->country;
+        return $this->address . ' ' . $this->zipCode  . ' ' . $this->city . ' ' . $this->country;
+    }
+
+    public function getCompleteName() {
+        return $this->firstName . ' ' . $this->lastName;
     }
 
     /**

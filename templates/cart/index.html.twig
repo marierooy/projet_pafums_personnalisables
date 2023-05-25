@@ -31,10 +31,10 @@
                             <div class="card-body">
                                 <div class="row justify-content-between">
                                     <div class="col-auto mt-0">
-                                        <p><b>{{ app.user.getCompleteAddress() }}</b></p>
+                                        <p><b>{{ app.user.getCompleteName() }}</b></p>
                                     </div>
                                     <div class="col-auto">
-                                        <p><b>{{ app.user.getEmail() }}</b> </p>
+                                        <p><b>{{ app.user.getCompleteAddress() }}</b></p>
                                     </div>
                                 </div>
                                 <div class="row mt-4">
@@ -83,9 +83,9 @@
                                                             <li>
                                                             {{ product.getName() }} <br>
                                                             {% if all_product_quantities[key_perfume].quantities is defined %} 
-                                                            Prix: {{all_product_quantities[key_perfume].quantities[key]}} x {{ product.getPrice() }} €
+                                                            Prix: {{all_product_quantities[key_perfume].quantities[key]}} x {{ product.getPrice() }} € (prix unitaire)
                                                             {% else %} 
-                                                            Prix: 1 x {{ product.getPrice() }} €
+                                                            Prix: 1 x {{ product.getPrice() }} € (prix unitaire)
                                                             {% endif %}
                                                             </li>
                                                         {% endfor %}
