@@ -157,7 +157,7 @@ class CartController extends AbstractController
             }
             $text = $text.'<p>Total: '.$order->getTotal().'€</p>';
             $text = $text.'<p>Cordialement,</p>';
-            $text = $text."<p>l'équipe d'Identité olfactive</p>";
+            $text = $text."<p>L'équipe d'Identité olfactive</p>";
             $email = (new Email())
             ->from('identite-olfactive@ecom.fr')
             ->to($user->getEmail())
