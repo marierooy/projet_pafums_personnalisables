@@ -62,7 +62,7 @@
                     {% set selected_created_perfume = created_perfume %}
                 {% endif %}
             {% endfor %}
-            {% if selected_order is not null and selected_created_perfume %}
+            {% if selected_order is not null and selected_created_perfume is not null %}
                 <tr>
                     <td>{{ selected_order.createdAt | date("Y-m-d H:i:s")  }}</td>
                     <td>{{ purchased_product.createdPerfume }}</td>
