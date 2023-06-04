@@ -131,7 +131,8 @@ class CartController extends AbstractController
             $order->setPaypalId($paypalId);
             $order->setTotal($this->session->get('total'));
             $date = new DatetimeImmutable;
-            $date->setTimezone(new DateTimeZone('Europe/Paris')); 
+            $timezoneName = timezone_name_from_abbr("", 2*3600, false);
+            $date->setTimezone(new DateTimeZone($timezoneName)); 
             $order->setCreatedAt($date);
             $orderRepo->save($order, true);
             $products = $productRepo->findAll();
